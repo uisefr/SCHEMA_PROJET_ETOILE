@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schéma 2 — Expérimentations · Projet Étoile · Mobilidées</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:        #0D1F3C;
+    --navy-mid:    #1B3560;
+    --blue:        #1B4F8A;
+    --blue-mid:    #2563A8;
+    --blue-light:  #EBF2FC;
+    --blue-xlight: #F5F9FE;
+    --teal:        #0D6E6E;
+    --teal-mid:    #0F8080;
+    --teal-light:  #E6F4F4;
+    --teal-xlight: #F3FAF9;
+    --amber:       #92520B;
+    --amber-mid:   #B06214;
+    --amber-light: #FDF3E3;
+    --amber-xlight:#FEFAF4;
+    --green:       #166534;
+    --green-mid:   #16a34a;
+    --green-light: #dcfce7;
+    --green-xlight:#f0fdf4;
+    --purple:      #5B3F9E;
+    --purple-mid:  #7c3aed;
+    --purple-light:#F0ECFA;
+    --cyan:        #0e7490;
+    --cyan-mid:    #0891b2;
+    --cyan-light:  #e0f2fe;
+    --rose:        #9d174d;
+    --rose-mid:    #db2777;
+    --rose-light:  #fce7f3;
+    --gold:        #92400e;
+    --gold-mid:    #d97706;
+    --gold-light:  #fef3c7;
+    --gray:        #4A4E58;
+    --gray-light:  #F4F5F7;
+    --border:      #DDE1E9;
+    --white:       #FFFFFF;
+    --bg:          #ECEEF3;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--navy);
+    padding: 0 0 56px;
+  }
+
+  /* ══ HEADER ══ */
+  .site-header {
+    background: var(--navy);
+    padding: 22px 48px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    border-bottom: 3px solid #E8541A;
+    flex-wrap: wrap;
+  }
+  .logo-box {
+    width: 46px; height: 46px;
+    background: #E8541A;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; color: #fff; letter-spacing: .04em;
+    flex-shrink: 0;
+  }
+  .site-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px; color: #fff; line-height: 1.2;
+  }
+  .site-header p {
+    font-size: 12px; color: #94a3c0; margin-top: 2px;
+  }
+  .sbadge {
+    margin-left: auto;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 8px; padding: 6px 14px;
+    font-size: 11px; font-weight: 600; letter-spacing: .07em;
+    color: #c8d4ee; white-space: nowrap;
+  }
+
+  /* ══ NAV ══ */
+  .site-nav {
+    background: #1a3060;
+    padding: 8px 48px;
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none; color: #94a3c0;
+    font-size: 12px; font-weight: 500;
+    transition: color .15s;
+  }
+  .back-link:hover { color: #fff; }
+
+  /* ══ PAGE ══ */
+  .page { max-width: 1300px; margin: 0 auto; padding: 28px 32px 0; }
+
+  /* ══ SECTION WRAPPER ══ */
+  .sc {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin-bottom: 18px;
+  }
+  .sh {
+    font-size: 11px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--gray);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sh::before {
+    content: '';
+    display: block; width: 14px; height: 3px;
+    border-radius: 2px;
+    background: var(--shc, var(--gray));
+    flex-shrink: 0;
+  }
+
+  /* ══ PROCESSUS DE DÉCISION ══ */
+  .proc-banner {
+    background: linear-gradient(135deg, #0f2044, #1a4a8a);
+    border-radius: 12px; padding: 20px 22px; color: #fff;
+  }
+  .pb-title {
+    font-size: 11px; font-weight: 700; letter-spacing: .07em;
+    text-transform: uppercase; opacity: .6; margin-bottom: 16px;
+  }
+  .pflow {
+    display: flex; align-items: center; gap: 0;
+    flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px;
+    scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.2) transparent;
+  }
+  .ps {
+    background: rgba(255,255,255,.1);
+    border: 1.5px solid rgba(255,255,255,.2);
+    border-radius: 9px; padding: 11px 13px;
+    min-width: 130px; max-width: 155px;
+    flex-shrink: 0; text-align: center;
+  }
+  .ps-tech { background: rgba(13,110,110,.3); border-color: rgba(126,207,173,.4); }
+  .ps-valid { background: rgba(146,82,11,.3); border-color: rgba(220,160,80,.4); }
+  .ps-deploy { background: rgba(22,163,74,.3); border-color: rgba(134,239,172,.4); }
+  .psn {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; line-height: 1; color: rgba(255,255,255,.9);
+  }
+  .psa {
+    font-size: 9px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .05em; margin: 3px 0 4px; color: rgba(255,255,255,.55);
+  }
+  .psl { font-size: 10px; color: rgba(255,255,255,.85); line-height: 1.45; }
+  .parr {
+    flex-shrink: 0; padding: 0 5px; color: rgba(255,255,255,.35);
+    display: flex; align-items: center;
+  }
+
+  /* ══ GRILLE 3 COLONNES ══ */
+  .exp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  /* ══ EN-TÊTE COLONNE ══ */
+  .exp-head {
+    border-radius: 10px; padding: 18px 20px;
+    margin-bottom: 14px; position: relative; overflow: hidden;
+  }
+  .exp-head::before {
+    content: '';
+    position: absolute; bottom: -28px; right: -28px;
+    width: 96px; height: 96px;
+    border-radius: 50%; background: rgba(255,255,255,.07);
+  }
+  .eh-num { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 5px; }
+  .eh-icon-row {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+  }
+  .eh-icon {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,.18);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .eh-name { font-family: 'DM Serif Display', serif; font-size: 17px; color: #fff; line-height: 1.2; }
+  .eh-sub { font-size: 10px; color: rgba(255,255,255,.65); margin-top: 2px; }
+  .eh-obj { font-size: 12px; color: rgba(255,255,255,.82); line-height: 1.5; border-top: 1px solid rgba(255,255,255,.15); padding-top: 8px; margin-top: 2px; }
+  .eh-new {
+    position: absolute; top: 10px; right: 10px;
+    background: #fff; color: var(--green-mid);
+    font-size: 8px; font-weight: 800; letter-spacing: .07em;
+    padding: 2px 8px; border-radius: 20px; text-transform: uppercase;
+  }
+
+  /* Couleurs colonnes */
+  .eh-blue   { background: var(--blue); }
+  .eh-teal   { background: var(--teal); }
+  .eh-amber  { background: var(--amber); }
+  .eh-green  { background: var(--green); }
+  .eh-purple { background: var(--purple); }
+  .eh-cyan   { background: var(--cyan); }
+  .eh-rose   { background: var(--rose); }
+  .eh-gold   { background: var(--gold); }
+
+  /* ══ STRATÉGIE ══ */
+  .strat { border-radius: 8px; padding: 13px 15px; margin-bottom: 12px; }
+  .st-blue   { background: var(--blue-light);  border: 1px solid #C2D8F0; }
+  .st-teal   { background: var(--teal-light);  border: 1px solid #B0D8D8; }
+  .st-amber  { background: var(--amber-light); border: 1px solid #EAC98A; }
+  .st-green  { background: var(--green-light); border: 1px solid #a7f3d0; }
+  .st-purple { background: var(--purple-light);border: 1px solid #c4b5fd; }
+  .st-cyan   { background: var(--cyan-light);  border: 1px solid #a5f3fc; }
+  .st-rose   { background: var(--rose-light);  border: 1px solid #fbcfe8; }
+  .st-gold   { background: var(--gold-light);  border: 1px solid #fde68a; }
+
+  .st-lbl { font-size: 10px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; margin-bottom: 8px; }
+  .sl-blue   { color: var(--blue); }
+  .sl-teal   { color: var(--teal); }
+  .sl-amber  { color: var(--amber); }
+  .sl-green  { color: var(--green); }
+  .sl-purple { color: var(--purple); }
+  .sl-cyan   { color: var(--cyan); }
+  .sl-rose   { color: var(--rose); }
+  .sl-gold   { color: var(--gold); }
+
+  .st-items { display: flex; flex-direction: column; gap: 5px; }
+  .st-item { display: flex; align-items: flex-start; gap: 7px; font-size: 12px; color: var(--navy); line-height: 1.45; }
+  .sarr {
+    flex-shrink: 0; margin-top: 2px;
+    width: 14px; height: 14px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7px; font-weight: 800;
+  }
+  .sa-blue   { background: var(--blue);   color: #fff; }
+  .sa-teal   { background: var(--teal);   color: #fff; }
+  .sa-amber  { background: var(--amber);  color: #fff; }
+  .sa-green  { background: var(--green);  color: #fff; }
+  .sa-purple { background: var(--purple); color: #fff; }
+  .sa-cyan   { background: var(--cyan);   color: #fff; }
+  .sa-rose   { background: var(--rose);   color: #fff; }
+  .sa-gold   { background: var(--gold);   color: #fff; }
+
+  /* ══ ACTION BLOCKS ══ */
+  .action {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px; margin-bottom: 10px; overflow: hidden;
+  }
+  .action-h {
+    display: flex; align-items: center; gap: 9px;
+    padding: 10px 13px; border-bottom: 1px solid var(--border);
+  }
+  .anum {
+    flex-shrink: 0; width: 21px; height: 21px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #fff;
+  }
+  .an-blue   { background: var(--blue); }
+  .an-teal   { background: var(--teal); }
+  .an-amber  { background: var(--amber); }
+  .an-green  { background: var(--green); }
+  .an-purple { background: var(--purple); }
+  .an-cyan   { background: var(--cyan); }
+  .an-rose   { background: var(--rose); }
+  .an-gold   { background: var(--gold); }
+
+  .atitle { font-size: 13px; font-weight: 600; color: var(--navy); }
+  .asub   { font-size: 11px; margin-top: 1px; }
+  .as-blue   { color: var(--blue-mid); }
+  .as-teal   { color: var(--teal-mid); }
+  .as-amber  { color: var(--amber-mid); }
+  .as-green  { color: var(--green-mid); }
+  .as-purple { color: var(--purple-mid); }
+  .as-cyan   { color: var(--cyan-mid); }
+  .as-rose   { color: var(--rose-mid); }
+  .as-gold   { color: var(--gold-mid); }
+
+  .subs { padding: 7px 13px 10px; display: flex; flex-direction: column; gap: 5px; }
+  .sub  { display: flex; align-items: flex-start; gap: 7px; font-size: 12px; color: var(--gray); line-height: 1.4; }
+  .sdot { flex-shrink: 0; margin-top: 5px; width: 5px; height: 5px; border-radius: 50%; }
+  .sd-blue   { background: var(--blue-mid); }
+  .sd-teal   { background: var(--teal-mid); }
+  .sd-amber  { background: var(--amber-mid); }
+  .sd-green  { background: var(--green-mid); }
+  .sd-purple { background: var(--purple-mid); }
+  .sd-cyan   { background: var(--cyan-mid); }
+  .sd-rose   { background: var(--rose-mid); }
+  .sd-gold   { background: var(--gold-mid); }
+
+  /* ══ TOOL BADGE ══ */
+  .tbadge {
+    border-radius: 7px; padding: 8px 12px;
+    font-size: 11px; display: flex; align-items: flex-start; gap: 8px;
+    margin-bottom: 14px; line-height: 1.45;
+  }
+  .tb-blue   { background: var(--blue-xlight);  border: 1px solid #C2D8F0; color: var(--blue); }
+  .tb-teal   { background: var(--teal-xlight);  border: 1px solid #B0D8D8; color: var(--teal); }
+  .tb-amber  { background: var(--amber-xlight); border: 1px solid #EAC98A; color: var(--amber); }
+  .tb-green  { background: var(--green-xlight); border: 1px solid #a7f3d0; color: var(--green); }
+  .tb-purple { background: var(--purple-light);  border: 1px solid #c4b5fd; color: var(--purple); }
+  .tb-cyan   { background: var(--cyan-light);    border: 1px solid #a5f3fc; color: var(--cyan); }
+  .tb-rose   { background: var(--rose-light);    border: 1px solid #fbcfe8; color: var(--rose); }
+  .tb-gold   { background: var(--gold-light);    border: 1px solid #fde68a; color: var(--gold); }
+  .tbadge svg { flex-shrink: 0; margin-top: 1px; }
+
+  /* ══ ZONES & INDICATEURS ══ */
+  .expe-zones {
+    background: var(--gray-light);
+    border-top: 1px solid var(--border);
+    padding: 10px 13px;
+    display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+    border-radius: 0 0 8px 8px;
+    margin-top: 6px;
+  }
+  .ez-label {
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .06em;
+    color: var(--gray); flex-shrink: 0;
+  }
+  .ez-tag {
+    font-size: 10px; font-weight: 500;
+    padding: 2px 9px; border-radius: 20px;
+    background: var(--white); border: 1px solid var(--border);
+    color: var(--navy);
+  }
+
+  .expe-eval {
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 13px;
+    margin-bottom: 10px;
+    background: var(--gray-light);
+  }
+  .ee-label {
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .06em;
+    color: var(--gray); margin-bottom: 7px;
+  }
+  .ee-row {
+    display: flex; align-items: flex-start; gap: 7px;
+    font-size: 11px; color: var(--navy); margin-bottom: 4px; line-height: 1.4;
+  }
+
+  /* ══ SUPPORTS DE COM ══ */
+  .sup-label {
+    font-size: 10px; font-weight: 700; letter-spacing: .09em;
+    text-transform: uppercase; color: var(--gray);
+    margin-bottom: 8px; padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sup-stack { display: flex; flex-direction: column; gap: 10px; }
+  .sup-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden;
+    display: flex; align-items: stretch;
+  }
+  .sup-vis {
+    flex-shrink: 0; width: 90px;
+    background: var(--gray-light);
+    display: flex; align-items: center; justify-content: center;
+    padding: 8px;
+  }
+  .sup-info { flex: 1; padding: 9px 12px; }
+  .sup-type {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase; margin-bottom: 2px;
+  }
+  .st-blue-t   { color: var(--blue); }
+  .st-teal-t   { color: var(--teal); }
+  .st-amber-t  { color: var(--amber); }
+  .st-green-t  { color: var(--green); }
+  .st-purple-t { color: var(--purple); }
+  .st-cyan-t   { color: var(--cyan); }
+  .st-rose-t   { color: var(--rose); }
+  .st-gold-t   { color: var(--gold); }
+  .sup-name { font-size: 12px; font-weight: 600; color: var(--navy); margin-bottom: 2px; }
+  .sup-desc { font-size: 11px; color: var(--gray); line-height: 1.4; }
+
+  /* ── Mini mockup : email ── */
+  .mm-email { background: #fff; border: 1px solid #dde1e9; border-radius: 5px; width: 100%; overflow: hidden; box-shadow: 0 1px 5px rgba(0,0,0,.1); }
+  .mme-h { padding: 5px 7px; }
+  .mme-logo { font-size: 7px; font-weight: 700; color: rgba(255,255,255,.8); letter-spacing: .08em; text-transform: uppercase; }
+  .mme-hero { padding: 8px 7px; text-align: center; }
+  .mme-hero-icon { display: flex; align-items: center; justify-content: center; margin: 0 auto 3px; }
+  .mme-ht { font-size: 9px; font-weight: 700; color: #fff; margin-top: 3px; line-height: 1.3; }
+  .mme-body { padding: 7px; }
+  .mme-l { height: 4px; background: var(--gray-light); border-radius: 2px; margin-bottom: 3px; }
+  .mme-l.s { width: 75%; } .mme-l.xs { width: 55%; }
+  .mme-cta { margin-top: 6px; border-radius: 3px; padding: 4px 6px; text-align: center; font-size: 8px; font-weight: 700; color: #fff; }
+
+  /* ── Mini mockup : affiche ── */
+  .mm-affiche { border-radius: 5px; padding: 8px; display: flex; flex-direction: column; justify-content: space-between; min-height: 110px; position: relative; overflow: hidden; width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+  .mm-affiche::before { content: ''; position: absolute; top: -15px; right: -15px; width: 55px; height: 55px; border-radius: 50%; background: rgba(255,255,255,.08); }
+  .mma-tag   { font-size: 6px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 4px; }
+  .mma-title { font-size: 10px; font-weight: 700; color: #fff; line-height: 1.2; }
+  .mma-icon  { text-align: center; opacity: .75; margin: 5px 0; display: flex; align-items: center; justify-content: center; }
+  .mma-cta   { border-radius: 3px; padding: 4px 6px; font-size: 7px; font-weight: 700; color: #fff; text-align: center; background: rgba(255,255,255,.22); }
+
+  /* ── Mini mockup : social ── */
+  .mm-social { background: #fff; border: 1px solid #dde1e9; border-radius: 6px; width: 100%; overflow: hidden; box-shadow: 0 1px 5px rgba(0,0,0,.08); }
+  .mms-top  { padding: 8px; text-align: center; }
+  .mms-icon { display: flex; align-items: center; justify-content: center; }
+  .mms-h    { font-size: 9px; font-weight: 700; color: #fff; margin-top: 3px; line-height: 1.3; }
+  .mms-body { padding: 7px; }
+  .mms-txt  { font-size: 8px; color: #444; line-height: 1.5; }
+  .mms-tags { margin-top: 4px; font-size: 8px; font-weight: 600; }
+  .mms-foot { padding: 5px 7px; border-top: 1px solid var(--gray-light); font-size: 8px; color: var(--gray); }
+
+  /* ── Mini mockup : guide ── */
+  .mm-guide { background: #fff; border: 1px solid #dde1e9; border-radius: 5px; width: 100%; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+  .mmg-cover { padding: 9px; display: flex; flex-direction: column; gap: 5px; min-height: 80px; }
+  .mmg-logo  { font-size: 7px; font-weight: 700; color: rgba(255,255,255,.5); letter-spacing: .08em; text-transform: uppercase; }
+  .mmg-icon  { opacity: .8; display: flex; }
+  .mmg-title { font-size: 10px; font-weight: 700; color: #fff; line-height: 1.2; }
+  .mmg-foot  { background: rgba(0,0,0,.2); padding: 4px 7px; font-size: 7px; color: rgba(255,255,255,.55); }
+
+  /* ── Mini mockup : notif ── */
+  .mm-notif  { background: #fff; border-radius: 8px; width: 100%; padding: 6px; box-shadow: 0 3px 12px rgba(0,0,0,.12); overflow: hidden; }
+  .mmn-bar   { display: flex; justify-content: space-between; font-size: 6px; color: var(--gray); margin-bottom: 5px; }
+  .mmn-n     { background: var(--gray-light); border-radius: 6px; padding: 6px; display: flex; align-items: flex-start; gap: 5px; }
+  .mmn-icon  { width: 20px; height: 20px; border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .mmn-content { min-width: 0; flex: 1; overflow: hidden; }
+  .mmn-app   { font-size: 6px; font-weight: 700; color: var(--gray); margin-bottom: 1px; }
+  .mmn-txt   { font-size: 8px; color: var(--navy); line-height: 1.3; }
+  .mmn-time  { font-size: 6px; color: var(--gray); margin-top: 2px; }
+
+  /* ── Mini mockup : flyer ── */
+  .mm-flyer { border-radius: 5px; width: 100%; overflow: hidden; box-shadow: 0 1px 5px rgba(0,0,0,.08); }
+  .mmf-band { padding: 7px 9px; display: flex; align-items: center; gap: 5px; }
+  .mmf-bt   { font-size: 10px; font-weight: 700; color: #fff; }
+  .mmf-bs   { font-size: 7px; color: rgba(255,255,255,.75); margin-top: 1px; }
+  .mmf-body { padding: 7px 9px; display: flex; flex-direction: column; gap: 4px; }
+  .mmf-item { display: flex; align-items: flex-start; gap: 5px; }
+  .mmf-dot  { width: 4px; height: 4px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+  .mmf-txt  { font-size: 9px; line-height: 1.4; }
+  .mmf-foot { padding: 4px 9px; font-size: 8px; font-weight: 700; color: #fff; text-align: center; }
+
+  /* Badge spécial */
+  .badge-special {
+    border-radius: 10px; padding: 10px;
+    text-align: center; width: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  }
+  .badge-special-icon { display: flex; align-items: center; justify-content: center; }
+  .badge-special-title { font-size: 10px; font-weight: 700; margin-top: 4px; line-height: 1.2; }
+  .badge-special-sub   { font-size: 8px; opacity: .7; margin-top: 2px; }
+  .badge-special-tag   { margin-top: 7px; border-radius: 4px; padding: 3px 6px; font-size: 8px; font-weight: 700; color: #fff; }
+
+  /* ══ ÉVALUATION GLOBALE ══ */
+  .eval-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .eval-card {
+    background: var(--gray-light); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 14px 16px;
+  }
+  .eval-card h4 {
+    font-size: 12px; font-weight: 700; color: var(--navy);
+    margin-bottom: 8px; display: flex; align-items: center; gap: 7px;
+  }
+  .eval-card h4 svg { flex-shrink: 0; }
+  .eval-card ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .eval-card ul li {
+    font-size: 11px; color: var(--navy);
+    display: flex; align-items: flex-start; gap: 6px; line-height: 1.4;
+  }
+  .eval-card ul li svg { flex-shrink: 0; margin-top: 2px; }
+
+  /* ══ FOOTER ══ */
+  .site-footer {
+    text-align: center; font-size: 11px; color: #aaa;
+    padding: 24px 32px; border-top: 1px solid var(--border);
+    background: var(--white); margin-top: 0;
+  }
+
+  /* ══════════ RESPONSIVE ══════════ */
+  @media (max-width: 1100px) {
+    .exp-grid { grid-template-columns: 1fr 1fr; }
+    .site-header { padding: 18px 28px; }
+    .site-nav { padding: 8px 28px; }
+    .page { padding: 20px 20px 0; }
+  }
+
+  @media (max-width: 768px) {
+    .site-header { padding: 16px 20px; gap: 12px; }
+    .site-header h1 { font-size: 17px; }
+    .sbadge { margin-left: 0; }
+    .site-nav { padding: 8px 20px; }
+    .page { padding: 16px 14px 0; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .sc { padding: 16px 16px; }
+    .pflow { gap: 4px; }
+    .ps { min-width: 110px; padding: 9px 10px; }
+    .psn { font-size: 18px; }
+    .psl { font-size: 9px; }
+    .eval-grid { grid-template-columns: 1fr 1fr; }
+    .site-footer { font-size: 10px; padding: 18px 20px; }
+  }
+
+  @media (max-width: 540px) {
+    .site-header { flex-direction: column; align-items: flex-start; }
+    .sbadge { margin-left: 0; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .sup-card { flex-direction: column; }
+    .sup-vis { width: 100%; min-height: 90px; padding: 10px; }
+    .sup-info { padding: 10px 12px; }
+    .eval-grid { grid-template-columns: 1fr; }
+    .action-h { flex-wrap: wrap; gap: 6px; }
+    .pflow { flex-direction: column; align-items: stretch; overflow-x: visible; }
+    .ps { max-width: 100%; text-align: left; display: flex; align-items: center; gap: 10px; }
+    .psn { font-size: 20px; flex-shrink: 0; }
+    .parr { display: none; }
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { max-width: 100%; padding: 16px; }
+    .exp-grid { grid-template-columns: repeat(3, 1fr); }
+    .site-header { border-radius: 0; }
+    .sc { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ EN-TÊTE SITE ══ -->
+<header class="site-header">
+  <div class="logo-box">PE</div>
+  <div>
+    <h1>Schéma 2 — Acteurs, actions et supports par expérimentation</h1>
+    <p>Projet Étoile · Mobilidées × ADEME · Mobilités actives et partagées · 2025–2028</p>
+  </div>
+  <span class="sbadge">SCHÉMA 2</span>
+</header>
+
+<nav class="site-nav">
+  <a href="index.html" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Retour au hub
+  </a>
+</nav>
+
+<div class="page">
+
+  <!-- ══════════════════════════════════
+       SECTION 1 : PROCESSUS DE DÉCISION
+  ══════════════════════════════════ -->
+  <div class="sc">
+    <div class="sh" style="--shc:#1B4F8A">Processus de décision — de l'étude au déploiement terrain</div>
+    <div class="proc-banner">
+      <div class="pb-title">Chaîne de validation des expérimentations</div>
+      <div class="pflow">
+        <div class="ps ps-tech">
+          <div class="psn">1</div>
+          <div class="psa">Techniciens</div>
+          <div class="psl">Études techniques · Diagnostics terrain · Enquêtes</div>
+        </div>
+        <div class="parr">
+          <svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h16M12 1l6 4-6 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <div class="ps ps-tech">
+          <div class="psn">2</div>
+          <div class="psa">Techniciens × Opérateurs</div>
+          <div class="psl">Contact partenaires · Co-conception solutions</div>
+        </div>
+        <div class="parr">
+          <svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h16M12 1l6 4-6 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <div class="ps ps-tech">
+          <div class="psn">3</div>
+          <div class="psa">Techniciens</div>
+          <div class="psl">Réalisation tests · Expérimentations pilotes</div>
+        </div>
+        <div class="parr">
+          <svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h16M12 1l6 4-6 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <div class="ps ps-valid">
+          <div class="psn">4</div>
+          <div class="psa">Élus · COPIL</div>
+          <div class="psl">Validation des actions · Arbitrages budgétaires</div>
+        </div>
+        <div class="parr">
+          <svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h16M12 1l6 4-6 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <div class="ps ps-deploy">
+          <div class="psn">5</div>
+          <div class="psa">Terrain</div>
+          <div class="psl">Déploiement opérationnel · Animation usagers</div>
+        </div>
+        <div class="parr">
+          <svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h16M12 1l6 4-6 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+        </div>
+        <div class="ps ps-valid">
+          <div class="psn">6</div>
+          <div class="psa">Élus · COPIL · ADEME</div>
+          <div class="psl">Résultats présentés · Rapport · Évaluation qualitative</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       SECTION 2 : EXPÉRIMENTATIONS
+  ══════════════════════════════════ -->
+  <div class="sc">
+    <div class="sh" style="--shc:#16a34a">6 expérimentations — Actions, sous-actions et supports de communication</div>
+
+    <div class="exp-grid">
+
+      <!-- ══════ EXP 01 · VAE / VÉLO ══════ -->
+      <div>
+        <div class="exp-head eh-blue">
+          <div class="eh-num">Expérimentation 01</div>
+          <div class="eh-icon-row">
+            <div class="eh-icon">
+              <!-- Bicycle / wheel icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/>
+                <path d="M5 17l4-8h6l4 8"/><path d="M11 9l-2 4h5"/>
+              </svg>
+            </div>
+            <div>
+              <div class="eh-name">Prêt VAE & vélos musculaires</div>
+              <div class="eh-sub">6 VAE + 8 vélos classiques · 3 mois par ZA</div>
+            </div>
+          </div>
+          <div class="eh-obj">Sélection de bénéficiaires précaires (CDD, stagiaires, apprentis). Accompagnement à la remise en selle et collecte de données terrain via carnets de voyage.</div>
+        </div>
+
+        <div class="strat st-blue">
+          <div class="st-lbl sl-blue">Stratégie de communication</div>
+          <div class="st-items">
+            <div class="st-item"><div class="sarr sa-blue">›</div><span>Cibler les profils à mobilité précaire (CDD, apprentis)</span></div>
+            <div class="st-item"><div class="sarr sa-blue">›</div><span>Ateliers collectifs de remise en selle</span></div>
+            <div class="st-item"><div class="sarr sa-blue">›</div><span>Carnets de voyage : collecte de données terrain</span></div>
+            <div class="st-item"><div class="sarr sa-blue">›</div><span>Alimentation de la cartographie partagée</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-blue">1</div>
+            <div><div class="atitle">Communication digitale</div><div class="asub as-blue">Site web · Emailing · Réseaux sociaux</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-blue"></div><span>Page dédiée sur le site Mobilidées</span></div>
+            <div class="sub"><div class="sdot sd-blue"></div><span>Emails d'information aux 300 contacts inscrits</span></div>
+            <div class="sub"><div class="sdot sd-blue"></div><span>Témoignages d'utilisateurs diffusés sur les réseaux</span></div>
+            <div class="sub"><div class="sdot sd-blue"></div><span>Visuels explicatifs du dispositif VAE</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-blue">2</div>
+            <div><div class="atitle">Communication terrain</div><div class="asub as-blue">Stands · Affiches · Flyers · Animations</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-blue"></div><span>Stands d'information sur les zones d'activité</span></div>
+            <div class="sub"><div class="sdot sd-blue"></div><span>Distribution de flyers, affichage de posters</span></div>
+            <div class="sub"><div class="sdot sd-blue"></div><span>Présentation des cartes de localisation salariés</span></div>
+            <div class="sub"><div class="sdot sd-blue"></div><span>Animations : jeux, quiz mobilité</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-blue">3</div>
+            <div><div class="atitle">Mise en relation & suivi</div><div class="asub as-blue">Action Vélo Aubagne · Référents ZA · COTECH</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-blue"></div><span>Sélection des bénéficiaires avec les référents ZA</span></div>
+            <div class="sub"><div class="sdot sd-blue"></div><span>Atelier de remise en selle encadré (Action Vélo)</span></div>
+            <div class="sub"><div class="sdot sd-blue"></div><span>Carnets de voyage : retours remontés au COTECH</span></div>
+            <div class="sub"><div class="sdot sd-blue"></div><span>Partage inter-zones lors de la SEM</span></div>
+          </div>
+        </div>
+
+        <div class="tbadge tb-blue">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M5 17l4-8h6l4 8"/><path d="M11 9l-2 4h5"/></svg>
+          <span>Acteurs : Action Vélo Aubagne · Référents ZA · Salariés · Profils précaires | Indicateur : 10% passage à l'acte (base Libre en Selle)</span>
+        </div>
+
+        <div class="expe-zones">
+          <span class="ez-label">Zones :</span>
+          <span class="ez-tag">1 ZA / an (N1 → validation)</span>
+          <span class="ez-tag">Extension N2 & N3</span>
+        </div>
+
+        <div style="margin-top:14px">
+          <div class="sup-label">Exemples de supports produits</div>
+          <div class="sup-stack">
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-email">
+                  <div class="mme-h" style="background:var(--blue)"><div class="mme-logo">Mobilidées</div></div>
+                  <div class="mme-hero" style="background:var(--blue)">
+                    <div class="mme-hero-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M5 17l4-8h6l4 8"/><path d="M11 9l-2 4h5"/></svg>
+                    </div>
+                    <div class="mme-ht">Empruntez un VAE sur votre zone !</div>
+                  </div>
+                  <div class="mme-body">
+                    <div class="mme-l"></div><div class="mme-l s"></div><div class="mme-l xs"></div>
+                    <div class="mme-cta" style="background:var(--blue)">Je candidate →</div>
+                  </div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-blue-t">Email · Campagne recrutement</div>
+                <div class="sup-name">Email candidature VAE</div>
+                <div class="sup-desc">Envoyé aux 300 contacts. Présente le prêt VAE et lance les candidatures.</div>
+              </div>
+            </div>
+
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-affiche" style="background:var(--navy)">
+                  <div>
+                    <div class="mma-tag">Mobilidées · ADEME</div>
+                    <div class="mma-title">Empruntez un VAE gratuitement !</div>
+                  </div>
+                  <div class="mma-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M5 17l4-8h6l4 8"/><path d="M11 9l-2 4h5"/></svg>
+                  </div>
+                  <div class="mma-cta">Renseignez-vous</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-blue-t">Affiche · A2 / Roll-up</div>
+                <div class="sup-name">Affiche stand prêt VAE</div>
+                <div class="sup-desc">Présente le dispositif lors des stands et semaines mobilité sur les zones.</div>
+              </div>
+            </div>
+
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-social">
+                  <div class="mms-top" style="background:var(--blue)">
+                    <div class="mms-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M5 17l4-8h6l4 8"/><path d="M11 9l-2 4h5"/></svg>
+                    </div>
+                    <div class="mms-h">VAE disponibles sur votre zone !</div>
+                  </div>
+                  <div class="mms-body">
+                    <div class="mms-txt">CDD, stagiaire, apprenti ? Empruntez un vélo électrique 3 mois via Mobilidées.</div>
+                    <div class="mms-tags" style="color:var(--blue)">#VAE #Mobilidées #ADEME</div>
+                  </div>
+                  <div class="mms-foot">♥ 42 · ✉ 7 · ↗ Partager</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-blue-t">Réseaux sociaux · Post</div>
+                <div class="sup-name">Post LinkedIn recrutement VAE</div>
+                <div class="sup-desc">Cible les salariés précaires via les pages LinkedIn des entreprises partenaires.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════ EXP 02 · SORTIE VÉLOS ══════ -->
+      <div>
+        <div class="exp-head eh-green" style="position:relative">
+          <div class="eh-new">★ Nouvelle action</div>
+          <div class="eh-num">Expérimentation 02</div>
+          <div class="eh-icon-row">
+            <div class="eh-icon">
+              <!-- Map/route icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/>
+                <line x1="9" y1="3" x2="9" y2="18"/>
+                <line x1="15" y1="6" x2="15" y2="21"/>
+              </svg>
+            </div>
+            <div>
+              <div class="eh-name">Sortie vélos — découverte du territoire</div>
+              <div class="eh-sub">Animation collective · Vélo inclusif · ZA ciblées</div>
+            </div>
+          </div>
+          <div class="eh-obj">Animation festive inter-zones pour découvrir le territoire à vélo. Identification des points à risque sur les itinéraires et enrichissement de la cartographie partagée.</div>
+        </div>
+
+        <div class="strat st-green">
+          <div class="st-lbl sl-green">Stratégie de communication</div>
+          <div class="st-items">
+            <div class="st-item"><div class="sarr sa-green">›</div><span>Animation festive et inclusive pour tous les actifs</span></div>
+            <div class="st-item"><div class="sarr sa-green">›</div><span>Définition de parcours sécurisés (points d'intérêt)</span></div>
+            <div class="st-item"><div class="sarr sa-green">›</div><span>Carnets de voyage pour identifier les points à risque</span></div>
+            <div class="st-item"><div class="sarr sa-green">›</div><span>Transmission données terrain aux collectivités (CA)</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-green">1</div>
+            <div><div class="atitle">Organisation de la sortie</div><div class="asub as-green">Parcours · Sécurité · Matériel</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-green"></div><span>Techniciens : définition des parcours et points d'intérêt</span></div>
+            <div class="sub"><div class="sdot sd-green"></div><span>Partenariat Action Vélo : encadrement et sécurité</span></div>
+            <div class="sub"><div class="sdot sd-green"></div><span>Préparation du matériel (VAE + vélos classiques)</span></div>
+            <div class="sub"><div class="sdot sd-green"></div><span>Mobilisation des ambassadeurs et associations locales</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-green">2</div>
+            <div><div class="atitle">Communication & mobilisation</div><div class="asub as-green">Invitations · Affiches · Réseaux</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-green"></div><span>Invitations ciblées via les référents d'entreprises</span></div>
+            <div class="sub"><div class="sdot sd-green"></div><span>Affichage sur les zones et dans les entreprises</span></div>
+            <div class="sub"><div class="sdot sd-green"></div><span>Posts réseaux sociaux et newsletter Mobilidées</span></div>
+            <div class="sub"><div class="sdot sd-green"></div><span>Mobilisation France Travail / Mission Locale</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-green">3</div>
+            <div><div class="atitle">Collecte & restitution</div><div class="asub as-green">Carnets · Cartographie · Soirée d'échanges</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-green"></div><span>Carnets de voyage : identification points à risque</span></div>
+            <div class="sub"><div class="sdot sd-green"></div><span>Enrichissement de la cartographie partagée</span></div>
+            <div class="sub"><div class="sdot sd-green"></div><span>Partage des données avec la Métropole AMP</span></div>
+            <div class="sub"><div class="sdot sd-green"></div><span>Restitution lors de la Soirée d'échanges</span></div>
+          </div>
+        </div>
+
+        <div class="tbadge tb-green">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+          <span>Acteurs : Action Vélo Aubagne · Ambassadeurs · Associations locales | Indicateur : nb participants · points à risque transmis aux collectivités</span>
+        </div>
+
+        <div class="expe-zones">
+          <span class="ez-label">Zones ciblées :</span>
+          <span class="ez-tag" style="background:var(--green-light);border-color:var(--green-mid);color:var(--green);font-weight:600">Plaine de Jouques</span>
+          <span class="ez-tag" style="background:var(--green-light);border-color:var(--green-mid);color:var(--green);font-weight:600">Les Paluds</span>
+        </div>
+
+        <div style="margin-top:14px">
+          <div class="sup-label">Exemples de supports produits</div>
+          <div class="sup-stack">
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-affiche" style="background:var(--green)">
+                  <div>
+                    <div class="mma-tag">Mobilidées · Action Vélo</div>
+                    <div class="mma-title">Sortie vélos — découvrez votre territoire !</div>
+                  </div>
+                  <div class="mma-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+                  </div>
+                  <div class="mma-cta">Je participe</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-green-t">Affiche · Invitation sortie</div>
+                <div class="sup-name">Affiche animation collective</div>
+                <div class="sup-desc">Affichée sur les zones Plaine de Jouques et Les Paluds pour mobiliser les participants.</div>
+              </div>
+            </div>
+
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-guide">
+                  <div class="mmg-cover" style="background:var(--green)">
+                    <div class="mmg-logo">Mobilidées · Sortie vélos</div>
+                    <div class="mmg-icon">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/></svg>
+                    </div>
+                    <div class="mmg-title">Carnet de voyage — Plaine de Jouques</div>
+                  </div>
+                  <div class="mmg-foot">Mobilidées × ADEME · 2025</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-green-t">Carnet · Collecte terrain</div>
+                <div class="sup-name">Carnet de voyage à vélo</div>
+                <div class="sup-desc">Remis aux participants. Permet de noter les points à risque et impressions de parcours.</div>
+              </div>
+            </div>
+
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-social">
+                  <div class="mms-top" style="background:var(--green)">
+                    <div class="mms-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/></svg>
+                    </div>
+                    <div class="mms-h">Sortie vélos inter-zones !</div>
+                  </div>
+                  <div class="mms-body">
+                    <div class="mms-txt">Rejoignez-nous pour une sortie collective sur la Plaine de Jouques. Venez découvrir vos trajets à vélo.</div>
+                    <div class="mms-tags" style="color:var(--green)">#SortieVélos #Mobilidées #VéloActif</div>
+                  </div>
+                  <div class="mms-foot">♥ 29 · ✉ 4 · ↗ Partager</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-green-t">Réseaux sociaux · Événement</div>
+                <div class="sup-name">Post événement sortie vélos</div>
+                <div class="sup-desc">Diffusé sur les pages des entreprises partenaires et les réseaux Mobilidées.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════ EXP 03 · COVOITURAGE ══════ -->
+      <div>
+        <div class="exp-head eh-purple">
+          <div class="eh-num">Expérimentation 03</div>
+          <div class="eh-icon-row">
+            <div class="eh-icon">
+              <!-- Users / carpool icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div>
+              <div class="eh-name">Covoiturage par axe</div>
+              <div class="eh-sub">Animation spécifique · Points de rencontre · Karos</div>
+            </div>
+          </div>
+          <div class="eh-obj">Créer une communauté de covoitureurs sur les zones et faciliter les déplacements des salariés à mobilité précaire (horaires décalés, industrie, restauration).</div>
+        </div>
+
+        <div class="strat st-purple">
+          <div class="st-lbl sl-purple">Stratégie de communication</div>
+          <div class="st-items">
+            <div class="st-item"><div class="sarr sa-purple">›</div><span>Identifier les faisceaux principaux par zone</span></div>
+            <div class="st-item"><div class="sarr sa-purple">›</div><span>Créer un point de rencontre covoiturage par ZA</span></div>
+            <div class="st-item"><div class="sarr sa-purple">›</div><span>Communication ciblée : entreprises, parkings, péages</span></div>
+            <div class="st-item"><div class="sarr sa-purple">›</div><span>Parrainage de covoiturage (projet SGAR / MOUVinnov)</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-purple">1</div>
+            <div><div class="atitle">Communication digitale</div><div class="asub as-purple">Site web · Emailing · App Karos</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-purple"></div><span>Page dédiée sur le site Mobilidées</span></div>
+            <div class="sub"><div class="sdot sd-purple"></div><span>Emails d'info aux 300 contacts inscrits</span></div>
+            <div class="sub"><div class="sdot sd-purple"></div><span>Création communauté Karos par zone d'activité</span></div>
+            <div class="sub"><div class="sdot sd-purple"></div><span>Témoignages d'utilisateurs sur les réseaux</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-purple">2</div>
+            <div><div class="atitle">Communication terrain</div><div class="asub as-purple">Stands · Affiches · Flyers · Points de rencontre</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-purple"></div><span>Stands d'information sur les zones d'activité</span></div>
+            <div class="sub"><div class="sdot sd-purple"></div><span>Affichage dans les entreprises, parkings, péages</span></div>
+            <div class="sub"><div class="sdot sd-purple"></div><span>Présentation des cartes de localisation salariés</span></div>
+            <div class="sub"><div class="sdot sd-purple"></div><span>Signalétique des points de rencontre covoiturage</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-purple">3</div>
+            <div><div class="atitle">Mise en relation & suivi</div><div class="asub as-purple">Karos · MOUVinnov · Ateliers inter-zones</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-purple"></div><span>Communauté Karos par zone (faisceaux identifiés)</span></div>
+            <div class="sub"><div class="sdot sd-purple"></div><span>Parrainage de covoiturage via MOUVinnov (SGAR)</span></div>
+            <div class="sub"><div class="sdot sd-purple"></div><span>N2 : arrêts covoiturage co-construits avec usagers</span></div>
+            <div class="sub"><div class="sdot sd-purple"></div><span>Résultats partagés en COTECH inter-zones</span></div>
+          </div>
+        </div>
+
+        <div class="tbadge tb-purple">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Outils : Karos · MOUVinnov · Site Mobilidées · 300 contacts | Indicateur : confirmation du report modal · CO² économisé</span>
+        </div>
+
+        <div class="expe-zones">
+          <span class="ez-label">Zones :</span>
+          <span class="ez-tag">1 ZA faisceau principal (N1)</span>
+          <span class="ez-tag">Extension N2 & N3</span>
+        </div>
+
+        <div style="margin-top:14px">
+          <div class="sup-label">Exemples de supports produits</div>
+          <div class="sup-stack">
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-email">
+                  <div class="mme-h" style="background:var(--purple)"><div class="mme-logo">Mobilidées · Karos</div></div>
+                  <div class="mme-hero" style="background:var(--purple)">
+                    <div class="mme-hero-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                    </div>
+                    <div class="mme-ht">Covoiturez sur votre axe !</div>
+                  </div>
+                  <div class="mme-body">
+                    <div class="mme-l"></div><div class="mme-l s"></div><div class="mme-l xs"></div>
+                    <div class="mme-cta" style="background:var(--purple)">Je rejoins Karos →</div>
+                  </div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-purple-t">Email · Campagne recrutement</div>
+                <div class="sup-name">Campagne emailing covoiturage</div>
+                <div class="sup-desc">Envoyé aux 300 contacts. Présente le covoiturage et pousse à l'inscription sur Karos.</div>
+              </div>
+            </div>
+
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-affiche" style="background:var(--purple)">
+                  <div>
+                    <div class="mma-tag">Mobilidées · ADEME</div>
+                    <div class="mma-title">Covoiturez sur votre zone !</div>
+                  </div>
+                  <div class="mma-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                  </div>
+                  <div class="mma-cta">Inscrivez-vous</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-purple-t">Affiche · A2 / Roll-up</div>
+                <div class="sup-name">Affiche stand covoiturage</div>
+                <div class="sup-desc">Présente le dispositif sur les 5 zones lors des stands et semaines mobilité.</div>
+              </div>
+            </div>
+
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-social">
+                  <div class="mms-top" style="background:var(--purple)">
+                    <div class="mms-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    </div>
+                    <div class="mms-h">Covoiturage solidaire sur la zone !</div>
+                  </div>
+                  <div class="mms-body">
+                    <div class="mms-txt">Vous travaillez en 2×8 ? Trouvez un covoitureur sur votre axe via Mobilidées × Karos.</div>
+                    <div class="mms-tags" style="color:var(--purple)">#Covoiturage #Karos #Mobilidées</div>
+                  </div>
+                  <div class="mms-foot">♥ 38 · ✉ 5 · ↗ Partager</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-purple-t">Réseaux sociaux · Post</div>
+                <div class="sup-name">Post LinkedIn covoiturage</div>
+                <div class="sup-desc">Vise les salariés en horaires décalés via les pages des entreprises partenaires.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════ EXP 04 · INTERMODALITÉ TC ══════ -->
+      <div>
+        <div class="exp-head eh-cyan">
+          <div class="eh-num">Expérimentation 04</div>
+          <div class="eh-icon-row">
+            <div class="eh-icon">
+              <!-- Bus / transit icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="13" rx="2"/>
+                <path d="M2 11h20"/>
+                <circle cx="7" cy="18" r="1.5"/>
+                <circle cx="17" cy="18" r="1.5"/>
+                <path d="M8 5V2M16 5V2"/>
+              </svg>
+            </div>
+            <div>
+              <div class="eh-name">Escape Game — Accès TC aux ZA</div>
+              <div class="eh-sub">Carnet de voyage à l'emploi · Intermodalité vélo</div>
+            </div>
+          </div>
+          <div class="eh-obj">Expérimentation ludique pour lever les freins à l'usage des transports en commun vers les zones d'activité. Cible prioritairement les demandeurs d'emploi et salariés précaires.</div>
+        </div>
+
+        <div class="strat st-cyan">
+          <div class="st-lbl sl-cyan">Stratégie de communication</div>
+          <div class="st-items">
+            <div class="st-item"><div class="sarr sa-cyan">›</div><span>Parcours TC types par zone (point de vue usager)</span></div>
+            <div class="st-item"><div class="sarr sa-cyan">›</div><span>Escape Game : défi TC vers les zones d'activité</span></div>
+            <div class="st-item"><div class="sarr sa-cyan">›</div><span>Carnet de voyage à l'emploi : expériences documentées</span></div>
+            <div class="st-item"><div class="sarr sa-cyan">›</div><span>N2 : street marketing collaboratif usagers/institutions</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-cyan">1</div>
+            <div><div class="atitle">Partenariats emploi & mobilité</div><div class="asub as-cyan">France Travail · Mission Locale · RTM · TER</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-cyan"></div><span>Mobiliser France Travail et Mission Locale</span></div>
+            <div class="sub"><div class="sdot sd-cyan"></div><span>Coordination avec les opérateurs TC (RTM, TER)</span></div>
+            <div class="sub"><div class="sdot sd-cyan"></div><span>Volet inclusif PDMEC avec le Département 13</span></div>
+            <div class="sub"><div class="sdot sd-cyan"></div><span>Ciblage des profils demandeurs d'emploi et précaires</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-cyan">2</div>
+            <div><div class="atitle">Escape Game TC</div><div class="asub as-cyan">Animation · Défi transport · Collecte données</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-cyan"></div><span>Organisation du défi TC vers la zone d'activité</span></div>
+            <div class="sub"><div class="sdot sd-cyan"></div><span>Remise des carnets de voyage à l'emploi</span></div>
+            <div class="sub"><div class="sdot sd-cyan"></div><span>Collecte des retours d'expérience participants</span></div>
+            <div class="sub"><div class="sdot sd-cyan"></div><span>Rex partagé avec le Département 13 et le COTECH</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-cyan">3</div>
+            <div><div class="atitle">Communication & diffusion</div><div class="asub as-cyan">Affiches · Posts · Street marketing N2</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-cyan"></div><span>Affichage sur les zones et dans les agences emploi</span></div>
+            <div class="sub"><div class="sdot sd-cyan"></div><span>Posts réseaux sociaux et emailing ciblé</span></div>
+            <div class="sub"><div class="sdot sd-cyan"></div><span>N2 : street marketing collaboratif avec usagers</span></div>
+            <div class="sub"><div class="sdot sd-cyan"></div><span>Résultats présentés à la Soirée d'échanges</span></div>
+          </div>
+        </div>
+
+        <div class="tbadge tb-cyan">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="M2 11h20"/><circle cx="7" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/></svg>
+          <span>Acteurs : France Travail · Mission Locale · RTM · TER · Département 13 | Indicateur : représentativité profils · évolution intention report modal</span>
+        </div>
+
+        <div class="expe-zones">
+          <span class="ez-label">Zones :</span>
+          <span class="ez-tag">Les Paluds (TC développé)</span>
+          <span class="ez-tag">Napollon (TC limité)</span>
+        </div>
+
+        <div style="margin-top:14px">
+          <div class="sup-label">Exemples de supports produits</div>
+          <div class="sup-stack">
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-affiche" style="background:var(--cyan)">
+                  <div>
+                    <div class="mma-tag">Mobilidées · France Travail</div>
+                    <div class="mma-title">Escape Game — Prenez les TC vers votre emploi !</div>
+                  </div>
+                  <div class="mma-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="M2 11h20"/><circle cx="7" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/></svg>
+                  </div>
+                  <div class="mma-cta">Inscrivez-vous</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-cyan-t">Affiche · Agences emploi</div>
+                <div class="sup-name">Affiche Escape Game TC</div>
+                <div class="sup-desc">Affichée dans les agences France Travail, Mission Locale et sur les zones d'activité ciblées.</div>
+              </div>
+            </div>
+
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-guide">
+                  <div class="mmg-cover" style="background:var(--cyan)">
+                    <div class="mmg-logo">Mobilidées · Accès emploi</div>
+                    <div class="mmg-icon">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="M2 11h20"/></svg>
+                    </div>
+                    <div class="mmg-title">Carnet de voyage à l'emploi — Les Paluds</div>
+                  </div>
+                  <div class="mmg-foot">Mobilidées × ADEME · 2025</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-cyan-t">Carnet · Collecte terrain</div>
+                <div class="sup-name">Carnet de voyage à l'emploi</div>
+                <div class="sup-desc">Remis aux participants de l'Escape Game. Documente le parcours TC et les difficultés rencontrées.</div>
+              </div>
+            </div>
+
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-notif">
+                  <div class="mmn-bar"><span>08:15</span><span>▲▲▲</span></div>
+                  <div class="mmn-n">
+                    <div class="mmn-icon" style="background:var(--cyan)">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="M2 11h20"/></svg>
+                    </div>
+                    <div class="mmn-content">
+                      <div class="mmn-app">MOBILIDÉES</div>
+                      <div class="mmn-txt">Escape Game TC ce matin — Départ Les Paluds 9h00.</div>
+                      <div class="mmn-time">Maintenant</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-cyan-t">Application · Push notification</div>
+                <div class="sup-name">Rappel Escape Game TC</div>
+                <div class="sup-desc">Notification envoyée aux participants inscrits le matin de l'événement.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════ EXP 05 · CYCLO-LOGISTIQUE ══════ -->
+      <div>
+        <div class="exp-head eh-amber">
+          <div class="eh-num">Expérimentation 05</div>
+          <div class="eh-icon-row">
+            <div class="eh-icon">
+              <!-- Package / delivery icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10V6a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 6v4"/>
+                <path d="M3 10l9 5 9-5"/>
+                <path d="M12 22V12"/>
+                <path d="M3 10v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V10"/>
+              </svg>
+            </div>
+            <div>
+              <div class="eh-name">Cyclo-logistique inclusive</div>
+              <div class="eh-sub">Services à vélo cargo · Circuits courts · ZA Les Paluds</div>
+            </div>
+          </div>
+          <div class="eh-obj">Services aux actifs et entreprises à vélo cargo : paniers bio locaux, petit outillage, livraison repas. Modèle inclusif porté par La Ressourcerie et MOUVinnov.</div>
+        </div>
+
+        <div class="strat st-amber">
+          <div class="st-lbl sl-amber">Stratégie de communication</div>
+          <div class="st-items">
+            <div class="st-item"><div class="sarr sa-amber">›</div><span>Promouvoir une solution locale et responsable</span></div>
+            <div class="st-item"><div class="sarr sa-amber">›</div><span>Mettre en avant le gain de temps pour les salariés</span></div>
+            <div class="st-item"><div class="sarr sa-amber">›</div><span>Valoriser l'impact écologique positif (circuits courts)</span></div>
+            <div class="st-item"><div class="sarr sa-amber">›</div><span>Encourager l'adhésion des entreprises au service</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-amber">1</div>
+            <div><div class="atitle">Co-construction du service</div><div class="asub as-amber">Ressourcerie · Producteurs locaux · Entreprises</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-amber"></div><span>Co-construction avec les ZA et entreprises partenaires</span></div>
+            <div class="sub"><div class="sdot sd-amber"></div><span>Partenariat La Ressourcerie et producteurs locaux</span></div>
+            <div class="sub"><div class="sdot sd-amber"></div><span>Définition des services (paniers bio, repas, outillage)</span></div>
+            <div class="sub"><div class="sdot sd-amber"></div><span>Modèle économique co-défini avec MOUVinnov</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-amber">2</div>
+            <div><div class="atitle">Communication salariés</div><div class="asub as-amber">Affiches · Menus · Horaires · Push app</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-amber"></div><span>Affichage posters sur les zones avec les services dispo</span></div>
+            <div class="sub"><div class="sdot sd-amber"></div><span>Diffusion menus disponibles et tarifs chaque semaine</span></div>
+            <div class="sub"><div class="sdot sd-amber"></div><span>Information sur les horaires et modalités de livraison</span></div>
+            <div class="sub"><div class="sdot sd-amber"></div><span>Notifications push quotidiennes via l'application</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-amber">3</div>
+            <div><div class="atitle">Lancement & extension</div><div class="asub as-amber">Campagne · Stand · Bilan N1 → COPIL</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-amber"></div><span>Campagne de lancement officielle avec stand sur zone</span></div>
+            <div class="sub"><div class="sdot sd-amber"></div><span>Distribution flyers et bons de réduction (1re commande)</span></div>
+            <div class="sub"><div class="sdot sd-amber"></div><span>Bilan N1 présenté à la Soirée d'échanges</span></div>
+            <div class="sub"><div class="sdot sd-amber"></div><span>Arbitrage extension en COPIL (périmètre & services N2)</span></div>
+          </div>
+        </div>
+
+        <div class="tbadge tb-amber">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10V6a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 6v4"/><path d="M3 10l9 5 9-5"/><path d="M12 22V12"/></svg>
+          <span>Acteurs : La Ressourcerie · Producteurs locaux · MOUVinnov | Indicateur : services déployés · livraisons · satisfaction entreprises</span>
+        </div>
+
+        <div class="expe-zones">
+          <span class="ez-label">Zones :</span>
+          <span class="ez-tag">Les Paluds</span>
+          <span class="ez-tag">La Martelle</span>
+          <span class="ez-tag">Extension N2</span>
+        </div>
+
+        <div style="margin-top:14px">
+          <div class="sup-label">Exemples de supports produits</div>
+          <div class="sup-stack">
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-flyer" style="background:var(--amber-light);border:1px solid #e5c484">
+                  <div class="mmf-band" style="background:var(--amber)">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 0 0-1-1h-4L8 11l4 4.5"/><path d="M12 6h3l3 5.5"/><path d="M8 11h8"/></svg>
+                    <div><div class="mmf-bt">Livraison à vélo</div><div class="mmf-bs">Les Paluds · Commandez avant 11h30</div></div>
+                  </div>
+                  <div class="mmf-body">
+                    <div class="mmf-item"><div class="mmf-dot" style="background:var(--amber)"></div><div class="mmf-txt" style="color:#3a2200">Paniers bio locaux</div></div>
+                    <div class="mmf-item"><div class="mmf-dot" style="background:var(--amber)"></div><div class="mmf-txt" style="color:#3a2200">Livraison repas midi</div></div>
+                    <div class="mmf-item"><div class="mmf-dot" style="background:var(--amber)"></div><div class="mmf-txt" style="color:#3a2200">Circuits courts</div></div>
+                  </div>
+                  <div class="mmf-foot" style="background:var(--amber)">mobilidees.fr · Cyclo-logistique</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-amber-t">Flyer · Format A5 / A6</div>
+                <div class="sup-name">Flyer lancement cyclo-logistique</div>
+                <div class="sup-desc">Distribué sur les zones, dans les entreprises et lors du stand de lancement du service.</div>
+              </div>
+            </div>
+
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-notif">
+                  <div class="mmn-bar"><span>09:42</span><span>▲▲▲</span></div>
+                  <div class="mmn-n">
+                    <div class="mmn-icon" style="background:var(--amber)">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10V6a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 6v4"/><path d="M3 10l9 5 9-5"/><path d="M12 22V12"/></svg>
+                    </div>
+                    <div class="mmn-content">
+                      <div class="mmn-app">MOBILIDÉES</div>
+                      <div class="mmn-txt">Commandes ouvertes ! Paniers bio & repas — avant 11h30.</div>
+                      <div class="mmn-time">Maintenant</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-amber-t">Application · Push notification</div>
+                <div class="sup-name">Rappel quotidien commandes</div>
+                <div class="sup-desc">Notification matinale envoyée aux salariés inscrits sur la zone Les Paluds / La Martelle.</div>
+              </div>
+            </div>
+
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-affiche" style="background:var(--amber)">
+                  <div>
+                    <div class="mma-tag">Mobilidées · Restaurateurs</div>
+                    <div class="mma-title">Livrez vos repas à vélo sur la zone !</div>
+                  </div>
+                  <div class="mma-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 0 0-1-1h-4L8 11l4 4.5"/><path d="M12 6h3l3 5.5"/><path d="M8 11h8"/></svg>
+                  </div>
+                  <div class="mma-cta">Devenez partenaire</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-amber-t">Affiche · B2B restaurateurs</div>
+                <div class="sup-name">Affiche recrutement restaurateurs</div>
+                <div class="sup-desc">Cible les restaurateurs locaux pour rejoindre le service de livraison à vélo cargo.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════ EXP 06 · FRESQUE & ANIMATIONS ══════ -->
+      <div>
+        <div class="exp-head eh-rose">
+          <div class="eh-num">Expérimentation 06</div>
+          <div class="eh-icon-row">
+            <div class="eh-icon">
+              <!-- Presentation / workshop icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                <path d="M8 21h8M12 17v4"/>
+                <path d="M7 8h10M7 12h6"/>
+              </svg>
+            </div>
+            <div>
+              <div class="eh-name">Fresque mobilité & animations</div>
+              <div class="eh-sub">N3 — Pérennisation · Play Mobile · Écoconduite</div>
+            </div>
+          </div>
+          <div class="eh-obj">Animations de sensibilisation collectives pour ancrer durablement les changements de comportement. Ouverture à d'autres ZA de la métropole et prospective européenne.</div>
+        </div>
+
+        <div class="strat st-rose">
+          <div class="st-lbl sl-rose">Stratégie de communication</div>
+          <div class="st-items">
+            <div class="st-item"><div class="sarr sa-rose">›</div><span>Fresque mobilité locale (par zone et inter-zones)</span></div>
+            <div class="st-item"><div class="sarr sa-rose">›</div><span>Jeu Play Mobile (ADEME × CEREMA)</span></div>
+            <div class="st-item"><div class="sarr sa-rose">›</div><span>Conférence écoconduite et pollution de l'air</span></div>
+            <div class="st-item"><div class="sarr sa-rose">›</div><span>Fiches thématiques · Argumentaires psycho-sociaux</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-rose">1</div>
+            <div><div class="atitle">Animations collectives</div><div class="asub as-rose">Fresque · Play Mobile · Jeux sensibilisation</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-rose"></div><span>Organisation de la Fresque mobilité par zone</span></div>
+            <div class="sub"><div class="sdot sd-rose"></div><span>Jeu Play Mobile (ADEME × CEREMA) sur les ZA</span></div>
+            <div class="sub"><div class="sdot sd-rose"></div><span>Atelier pollution de l'air — effets sur la santé</span></div>
+            <div class="sub"><div class="sdot sd-rose"></div><span>Fiches thématiques et argumentaires psycho-sociaux</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-rose">2</div>
+            <div><div class="atitle">Conférences & sensibilisation</div><div class="asub as-rose">Écoconduite · Santé · MOUVinnov · CEREMA</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-rose"></div><span>Conférence écoconduite : réduction consommation</span></div>
+            <div class="sub"><div class="sdot sd-rose"></div><span>Présentation des alternatives à la voiture solo</span></div>
+            <div class="sub"><div class="sdot sd-rose"></div><span>Invitation des entreprises et collectivités</span></div>
+            <div class="sub"><div class="sdot sd-rose"></div><span>MOUVinnov : coordination et supports pédagogiques</span></div>
+          </div>
+        </div>
+
+        <div class="action">
+          <div class="action-h">
+            <div class="anum an-rose">3</div>
+            <div><div class="atitle">Ouverture & pérennisation</div><div class="asub as-rose">Soirée d'échanges N3 · Métropole · Europe</div></div>
+          </div>
+          <div class="subs">
+            <div class="sub"><div class="sdot sd-rose"></div><span>Invitation autres ZA métro et régionales</span></div>
+            <div class="sub"><div class="sdot sd-rose"></div><span>Soirée d'échanges N3 ouverte (bilan global)</span></div>
+            <div class="sub"><div class="sdot sd-rose"></div><span>Prospective projet européen (essaimage)</span></div>
+            <div class="sub"><div class="sdot sd-rose"></div><span>Rapport final : cahier de recommandations ADEME</span></div>
+          </div>
+        </div>
+
+        <div class="tbadge tb-rose">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8h10M7 12h6"/></svg>
+          <span>Acteurs : MOUVinnov · ADEME · CEREMA · Collectivités | Indicateur : nb participants · satisfaction · évolution intentions de report modal</span>
+        </div>
+
+        <div class="expe-zones">
+          <span class="ez-label">Périmètre :</span>
+          <span class="ez-tag">Interzones N3</span>
+          <span class="ez-tag">Ouverture métropolitaine</span>
+        </div>
+
+        <div style="margin-top:14px">
+          <div class="sup-label">Exemples de supports produits</div>
+          <div class="sup-stack">
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-affiche" style="background:var(--rose)">
+                  <div>
+                    <div class="mma-tag">Mobilidées × ADEME · N3</div>
+                    <div class="mma-title">Fresque mobilité — Découvrez vos habitudes !</div>
+                  </div>
+                  <div class="mma-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M7 8h10M7 12h6"/></svg>
+                  </div>
+                  <div class="mma-cta">Je participe</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-rose-t">Affiche · Animation collective</div>
+                <div class="sup-name">Affiche Fresque Mobilité</div>
+                <div class="sup-desc">Affichée dans les entreprises et sur les zones pour inviter salariés et collectivités.</div>
+              </div>
+            </div>
+
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-guide">
+                  <div class="mmg-cover" style="background:var(--rose)">
+                    <div class="mmg-logo">Mobilidées · Fiches thématiques</div>
+                    <div class="mmg-icon">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M7 8h10M7 12h6"/></svg>
+                    </div>
+                    <div class="mmg-title">Écoconduite & Mobilités durables</div>
+                  </div>
+                  <div class="mmg-foot">Mobilidées × ADEME × CEREMA · 2027</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-rose-t">Guide PDF · Fiche thématique</div>
+                <div class="sup-name">Fiche écoconduite & mobilités</div>
+                <div class="sup-desc">Support pédagogique remis aux participants des conférences et animations N3.</div>
+              </div>
+            </div>
+
+            <div class="sup-card">
+              <div class="sup-vis">
+                <div class="mm-social">
+                  <div class="mms-top" style="background:var(--rose)">
+                    <div class="mms-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M7 8h10"/></svg>
+                    </div>
+                    <div class="mms-h">Fresque Mobilité — Rejoignez-nous !</div>
+                  </div>
+                  <div class="mms-body">
+                    <div class="mms-txt">Participez à notre atelier collectif pour repenser vos habitudes de déplacement. Ouvert à toutes les ZA !</div>
+                    <div class="mms-tags" style="color:var(--rose)">#FresqueMobilité #Mobilidées #ADEME</div>
+                  </div>
+                  <div class="mms-foot">♥ 51 · ✉ 9 · ↗ Partager</div>
+                </div>
+              </div>
+              <div class="sup-info">
+                <div class="sup-type st-rose-t">Réseaux sociaux · Post événement</div>
+                <div class="sup-name">Post LinkedIn Fresque Mobilité</div>
+                <div class="sup-desc">Diffusé sur les pages Mobilidées et des entreprises partenaires pour mobiliser le réseau.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /exp-grid -->
+  </div>
+
+  <!-- ══════════════════════════════════
+       SECTION 3 : ÉVALUATION GLOBALE
+  ══════════════════════════════════ -->
+  <div class="sc">
+    <div class="sh" style="--shc:#d97706">Évaluation globale des expérimentations — Acteurs, méthodes et indicateurs</div>
+    <div class="eval-grid">
+
+      <div class="eval-card">
+        <h4>
+          <!-- Chart bar icon -->
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="14" width="4" height="7"/><rect x="10" y="9" width="4" height="12"/><rect x="17" y="4" width="4" height="17"/></svg>
+          Méthode d'évaluation
+        </h4>
+        <ul>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>Évaluation qualitative après chaque expérimentation</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>Comparaison des résultats entre zones (inter-ZA)</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>Enquête déplacement N1 → N3 (même protocole)</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>Référentiel PDMEC 2023 comme base de départ</li>
+        </ul>
+      </div>
+
+      <div class="eval-card">
+        <h4>
+          <!-- Users icon -->
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Acteurs de l'évaluation
+        </h4>
+        <ul>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>Équipe technique Mobilidées : collecte données</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>MOUVinnov : analyse et synthèse AMO</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>COPIL : validation des indicateurs de suivi</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>ADEME : rapports intermédiaires (N1, N2) + final</li>
+        </ul>
+      </div>
+
+      <div class="eval-card">
+        <h4>
+          <!-- Ruler / metrics icon -->
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.4 2.4 0 0 1 0-3.4l2.6-2.6a2.4 2.4 0 0 1 3.4 0z"/><path d="M7.5 7.5l3 3M11 11l3 3M14.5 14.5l3 3"/></svg>
+          Indicateurs communs
+        </h4>
+        <ul>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>Confirmation du report modal (base déclarative)</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>Conversion en équivalent CO² économisé</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>Volume d'énergie carbonée économisée</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>Évolution intention de report modal par zone</li>
+        </ul>
+      </div>
+
+      <div class="eval-card">
+        <h4>
+          <!-- Refresh / loop icon -->
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Concertation sur résultats
+        </h4>
+        <ul>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>Rex partagés à la Soirée d'échanges (point d'orgue)</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>Points à risque terrain transmis aux collectivités (CA)</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>Données cartographie partagées Métropole AMP</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>Rapport final : cahier de recommandations ADEME</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<footer class="site-footer">
+  Projet Étoile · Mobilidées × ADEME · Marseille Métropole · Schéma 2 — Actions, sous-actions et supports par expérimentation · 2025–2028
+</footer>
+
+</body>
+</html>

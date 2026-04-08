@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schéma 1 — Communication globale · Projet Étoile</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+  :root{
+    --strat:#0f2044;--gouv:#1a4a8a;--oper:#1a7a5a;--terr:#b05a10;
+    --ademe:#e8541a;--gold:#f59e0b;--acc:#2563eb;
+    --sem:#7c3aed;--soiree:#db2777;--com:#0891b2;
+    --bg:#eef1f8;--white:#fff;--border:#dde3ee;--text:#1a2030;--muted:#6a7490;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding-bottom:60px}
+  header{background:var(--strat);color:#fff;padding:26px 48px;display:flex;align-items:center;gap:20px;border-bottom:4px solid var(--ademe)}
+  .logo{width:50px;height:50px;background:var(--ademe);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#fff;flex-shrink:0}
+  header h1{font-family:'Syne',sans-serif;font-size:21px;font-weight:700;line-height:1.2}
+  header p{font-size:12px;color:#94a3c0;margin-top:3px}
+  .sbadge{margin-left:auto;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:6px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;color:#c8d4ee}
+  .canvas{max-width:1300px;margin:32px auto;padding:0 32px;display:flex;flex-direction:column;gap:16px}
+
+  /* ── SECTION CARD ── */
+  .sc{background:#fff;border:1.5px solid var(--border);border-radius:15px;padding:22px 26px}
+  .sh{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+  .sh::before{content:'';display:block;width:16px;height:3px;border-radius:2px;background:var(--shc,var(--muted))}
+
+  /* ── TEMPS FORTS ── */
+  .tf-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  .tf-card{border-radius:13px;padding:20px;border:2px solid var(--tfc);background:var(--tfbg);position:relative;overflow:hidden}
+  .tf-card::after{content:var(--tfe);position:absolute;right:14px;top:12px;font-size:30px;opacity:.15}
+  .tf-badge{display:inline-flex;align-items:center;gap:5px;background:var(--tfc);color:#fff;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:20px;margin-bottom:10px}
+  .tf-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--tfc);line-height:1.2;margin-bottom:6px}
+  .tf-sub{font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.5}
+  .tf-actors{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+  .actor-pill{font-size:9.5px;font-weight:600;padding:3px 8px;border-radius:20px;border:1px solid;background:#fff;white-space:nowrap}
+  .tf-actions{list-style:none;display:flex;flex-direction:column;gap:5px}
+  .tf-actions li{font-size:10.5px;color:var(--text);display:flex;align-items:flex-start;gap:5px;line-height:1.4}
+  .tf-actions li::before{content:'✓';flex-shrink:0;font-weight:700;color:var(--tfc);margin-top:1px}
+  /* SEM */
+  .tf-sem{--tfc:var(--sem);--tfbg:#f5f2ff;--tfe:'🚲'}
+  .tf-sem .actor-pill{color:var(--sem);border-color:#c4b5fd}
+  /* Soirée */
+  .tf-soiree{--tfc:var(--soiree);--tfbg:#fff0f6;--tfe:'🌟'}
+  .tf-soiree .actor-pill{color:var(--soiree);border-color:#f9a8d4}
+  /* Com transversale */
+  .tf-com{--tfc:var(--com);--tfbg:#f0f9ff;--tfe:'📡'}
+  .tf-com .actor-pill{color:var(--com);border-color:#7dd3fc}
+
+  /* ── COMMUNICATION OUTILS ── */
+  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px}
+  .tool-card{background:#f6f8fc;border:1.5px solid var(--border);border-radius:11px;padding:14px 16px}
+  .tool-icon{font-size:22px;margin-bottom:7px}
+  .tool-name{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:4px}
+  .tool-desc{font-size:10.5px;color:var(--muted);line-height:1.5}
+  .tool-tag{display:inline-block;margin-top:7px;font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:20px;color:#fff;background:var(--tt,var(--muted))}
+
+  /* ── FLUX DE COMMUNICATION ── */
+  .flux-wrap{display:flex;flex-direction:column;gap:10px}
+  .flux-row{display:flex;align-items:stretch;gap:12px}
+  .flux-from,.flux-to{background:#f6f8fc;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;flex-direction:column;justify-content:center;min-width:150px;max-width:190px;flex-shrink:0}
+  .fx-name{font-family:'Syne',sans-serif;font-size:11.5px;font-weight:700;color:var(--text)}
+  .fx-role{font-size:9.5px;color:var(--muted);margin-top:2px;line-height:1.4}
+  .flux-arrows{flex:1;display:flex;flex-direction:column;justify-content:center;gap:5px;padding:0 8px}
+  .farr{display:flex;align-items:center;gap:7px;font-size:10px}
+  .farr-line{flex:1;height:1.5px;background:var(--fc,var(--border));opacity:.5}
+  .farr-head{font-size:12px;color:var(--fc,var(--muted))}
+  .farr-label{font-size:9.5px;color:var(--fc,var(--muted));white-space:nowrap;background:#fff;padding:1px 7px;border-radius:20px;border:1px solid var(--border)}
+  .farr.f-down .farr-line{background:var(--gouv)} .farr.f-down .farr-head{color:var(--gouv)} .farr.f-down .farr-label{color:var(--gouv)}
+  .farr.f-up .farr-line{background:var(--oper)} .farr.f-up .farr-head{color:var(--oper)} .farr.f-up .farr-label{color:var(--oper)}
+  .farr.f-both .farr-line{background:var(--gold)} .farr.f-both .farr-head{color:var(--gold)} .farr.f-both .farr-label{color:#b45309}
+  .farr.f-sem .farr-line{background:var(--sem)} .farr.f-sem .farr-head{color:var(--sem)} .farr.f-sem .farr-label{color:var(--sem)}
+  .farr.f-soiree .farr-line{background:var(--soiree)} .farr.f-soiree .farr-head{color:var(--soiree)} .farr.f-soiree .farr-label{color:var(--soiree)}
+
+  /* ── PLANNING 3 ANS ── */
+  .yr-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .yr-card{border-radius:12px;padding:18px;border:1.5px solid var(--yrc);background:var(--yrbg)}
+  .yr-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .yr-num{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--yrc);line-height:1}
+  .yr-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--yrc);line-height:1.3}
+  .yr-items{list-style:none;display:flex;flex-direction:column;gap:6px}
+  .yr-items li{font-size:10.5px;color:var(--text);display:flex;align-items:flex-start;gap:5px;line-height:1.4}
+  .yr-items li::before{content:'→';flex-shrink:0;font-weight:700;color:var(--yrc);margin-top:1px}
+  .yr1{--yrc:#7c3aed;--yrbg:#f8f4ff} .yr2{--yrc:#0891b2;--yrbg:#f0faff} .yr3{--yrc:#1a7a5a;--yrbg:#f0fdf4}
+
+  /* ── INDICATEURS ── */
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+  .kpi{background:#f6f8fc;border-radius:11px;padding:15px;border:1.5px solid var(--border);text-align:center}
+  .kpi-val{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--kc,var(--acc));line-height:1}
+  .kpi-label{font-size:10.5px;color:var(--text);margin-top:4px;font-weight:500;line-height:1.4}
+  .kpi-sub{font-size:9.5px;color:var(--muted);margin-top:2px}
+
+  /* ── ZONES ── */
+  .zones-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .zone-card{background:#f6f8fc;border:1.5px solid var(--border);border-radius:10px;padding:12px 10px;text-align:center}
+  .zone-name{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:4px}
+  .zone-jobs{font-size:10px;color:var(--oper);font-weight:600;margin-bottom:4px}
+  .zone-tags{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+  .zt{font-size:8.5px;font-weight:600;padding:2px 6px;border-radius:20px;border:1px solid var(--border);color:var(--muted);background:#fff}
+
+  footer{text-align:center;font-size:11px;color:var(--muted);padding:28px;border-top:1px solid var(--border);background:#fff;margin-top:16px}
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .canvas { padding: 0 20px; }
+    header { padding: 20px 28px; }
+    .leg { padding: 10px 28px; }
+    .frow { padding-left: 120px; }
+    .niveau { grid-template-columns: 120px 1fr; }
+    .nlabel { min-height: 110px; padding: 0 12px; }
+  }
+  @media (max-width: 860px) {
+    header { flex-wrap: wrap; gap: 12px; padding: 16px 20px; }
+    .sbadge { margin-left: 0; }
+    .canvas { padding: 0 14px; margin: 20px auto; }
+    .leg { padding: 10px 14px; gap: 14px; }
+    /* Niveau → stack label above content */
+    .niveau { grid-template-columns: 1fr; }
+    .nlabel {
+      flex-direction: row; align-items: center; justify-content: flex-start;
+      min-height: auto; padding: 10px 14px; border-right: none;
+      border-left: 4px solid var(--border); gap: 10px;
+    }
+    .ns .nlabel { border-left-color: var(--strat); }
+    .ng .nlabel { border-left-color: var(--gouv); }
+    .no .nlabel { border-left-color: var(--oper); }
+    .nt .nlabel { border-left-color: var(--terr); }
+    .nsub { text-align: left; margin-top: 0; }
+    .ns .ncontent, .ng .ncontent, .no .ncontent, .nt .ncontent {
+      border-radius: 0 0 12px 12px;
+    }
+    .ncontent { padding: 12px 14px; gap: 10px; }
+    .ac { min-width: calc(50% - 10px); max-width: none; }
+    .frow { padding-left: 0; padding: 6px 0; justify-content: flex-start; }
+    .dgrid { grid-template-columns: 1fr; }
+    .tf-grid { grid-template-columns: 1fr; }
+    .yr-grid { grid-template-columns: 1fr; }
+    .expe-grid { grid-template-columns: 1fr; }
+    .dynamic-section { grid-template-columns: 1fr; }
+    .zones-grid { grid-template-columns: repeat(2, 1fr); }
+    .eval-grid { grid-template-columns: 1fr 1fr; }
+    .pflow { overflow-x: auto; }
+    .section, .sc { padding: 16px 14px; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .flux-row { flex-wrap: wrap; gap: 8px; }
+    .flux-from, .flux-to { min-width: 100%; max-width: 100%; }
+    .flux-arrows { width: 100%; padding: 4px 0; }
+    .yr-grid { grid-template-columns: 1fr; gap: 10px; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    /* schema 2 */
+    .proc-banner { padding: 14px 16px; }
+  }
+  @media (max-width: 540px) {
+    header h1 { font-size: 17px; }
+    .ac { min-width: 100%; }
+    .zones-grid { grid-template-columns: 1fr 1fr; }
+    .mgrid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .eval-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: 1fr; }
+    .leg { display: none; }
+  }
+
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">PE</div>
+  <div>
+    <h1>Schéma global de communication et d'animation</h1>
+    <p>Projet Étoile — Mobilités actives et partagées · Mobilidées × ADEME · Acteurs, flux et concertation</p>
+  </div>
+  <span class="sbadge">SCHÉMA 1</span>
+</header>
+<nav style="background:#1a3060;padding:8px 48px;display:flex;align-items:center;gap:6px"><a href="index.html" style="color:#94a3c0;text-decoration:none;font-family:DM Sans,sans-serif;font-size:12px;display:flex;align-items:center;gap:5px">← Retour au hub</a></nav>
+
+<div class="canvas">
+
+  <!-- ZONES D'ACTIVITÉS -->
+  <div class="sc">
+    <div class="sh" style="--shc:var(--oper)">Les 5 zones d'activités du bassin Aubagne–Gémenos</div>
+    <div class="zones-grid">
+      <div class="zone-card">
+        <div class="zone-name">ZI Les Paluds</div>
+        <div class="zone-jobs">8 700 emplois</div>
+        <div class="zone-tags"><span class="zt">Aubagne</span><span class="zt">Vélo</span><span class="zt">Covoiturage</span></div>
+      </div>
+      <div class="zone-card">
+        <div class="zone-name">Pole Alpha</div>
+        <div class="zone-jobs">5 900 emplois</div>
+        <div class="zone-tags"><span class="zt">Aubagne</span><span class="zt">TC</span><span class="zt">SEM N1</span></div>
+      </div>
+      <div class="zone-card">
+        <div class="zone-name">Parc Gémenos</div>
+        <div class="zone-jobs">5 100 emplois</div>
+        <div class="zone-tags"><span class="zt">Gémenos</span><span class="zt">Village N1</span><span class="zt">VAE</span></div>
+      </div>
+      <div class="zone-card">
+        <div class="zone-name">La Martelle</div>
+        <div class="zone-jobs">3 000 emplois</div>
+        <div class="zone-tags"><span class="zt">Aubagne</span><span class="zt">Cyclo-log.</span></div>
+      </div>
+      <div class="zone-card">
+        <div class="zone-name">Napollon</div>
+        <div class="zone-jobs">1 300 emplois</div>
+        <div class="zone-tags"><span class="zt">Aubagne</span><span class="zt">Inclusion</span><span class="zt">TC limité</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 TEMPS FORTS + 1 TRANSVERSALE -->
+  <div class="sc">
+    <div class="sh" style="--shc:var(--sem)">3 axes de communication & animation — Acteurs, objectifs, actions</div>
+    <div class="tf-grid">
+
+      <!-- SEM -->
+      <div class="tf-card tf-sem">
+        <span class="tf-badge">📅 Annuel · Septembre</span>
+        <div class="tf-title">Semaine Européenne de la Mobilité</div>
+        <div class="tf-sub">Temps fort de sensibilisation interzones · Village mobilité itinérant (N2 : 1 jour/ZA)</div>
+        <div class="tf-actors">
+          <span class="actor-pill">Salariés / Actifs</span>
+          <span class="actor-pill">Entreprises adhérentes</span>
+          <span class="actor-pill">Opérateurs TC</span>
+          <span class="actor-pill">Action Vélo Aubagne</span>
+          <span class="actor-pill">La Ressourcerie</span>
+          <span class="actor-pill">Présidents ZA</span>
+          <span class="actor-pill">Commissions mobilité</span>
+        </div>
+        <ul class="tf-actions">
+          <li>Village mobilité (Gémenos en N1, 1/ZA/jour en N2-N3)</li>
+          <li>Challenges & Escape Game interzones</li>
+          <li>Ateliers réparation vélo · Stands de test VAE</li>
+          <li>Tables rondes élus / dirigeants / présidents ZA</li>
+          <li>Présentation des expérimentations en cours</li>
+          <li>Évaluation et retours d'expérience</li>
+          <li>Trophée ZA la plus mobilisée (N2 et N3)</li>
+        </ul>
+      </div>
+
+      <!-- Soirée d'échanges -->
+      <div class="tf-card tf-soiree">
+        <span class="tf-badge">🌟 Annuel · Janvier</span>
+        <div class="tf-title">Soirée d'échanges interzones</div>
+        <div class="tf-sub">Point d'orgue de l'année · Concertation collective · Projection N+1</div>
+        <div class="tf-actors">
+          <span class="actor-pill">Présidents 5 ZA</span>
+          <span class="actor-pill">CA Mobilidées</span>
+          <span class="actor-pill">MOUVinnov</span>
+          <span class="actor-pill">Collectivités locales</span>
+          <span class="actor-pill">Ambassadeurs</span>
+          <span class="actor-pill">ADEME</span>
+          <span class="actor-pill">Entreprises</span>
+        </div>
+        <ul class="tf-actions">
+          <li>Bilan des actions et expérimentations de l'année</li>
+          <li>Retours d'expérience croisés entre ZA</li>
+          <li>Valorisation des ambassadeurs mobilité</li>
+          <li>Arbitrage des expérimentations N+1</li>
+          <li>Remise du Trophée des ZA (N2 et N3)</li>
+          <li>Invitation d'autres ZA métropolitaines (N3)</li>
+          <li>Synthèse communiquée sous forme de livrable</li>
+        </ul>
+      </div>
+
+      <!-- Communication transversale -->
+      <div class="tf-card tf-com">
+        <span class="tf-badge">📡 Continu · Tout au long</span>
+        <div class="tf-title">Communication interzones transversale</div>
+        <div class="tf-sub">Accompagnement des expérimentations · Montée en puissance progressive</div>
+        <div class="tf-actors">
+          <span class="actor-pill">Équipe Mobilidées</span>
+          <span class="actor-pill">MOUVinnov</span>
+          <span class="actor-pill">Référents ZA</span>
+          <span class="actor-pill">COPIL</span>
+          <span class="actor-pill">Salariés</span>
+          <span class="actor-pill">Entreprises</span>
+        </div>
+        <ul class="tf-actions">
+          <li>Newsletter interzones (avant/après SEM) + newsletters ZA dédiées</li>
+          <li>Kit d'accessibilité multimodale par zone d'activité</li>
+          <li>Cartographie partagée en ligne (accès, TC, covoiturage, vélo…)</li>
+          <li>Carnets de voyage (vélo, emploi) → alimentation carto + ambassadeurs</li>
+          <li>Site internet adapté par zone et interzones</li>
+          <li>Outils digitaux : pop-up, formulaires, incitation mobilité ciblée</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLUX DE COMMUNICATION & RELATIONS -->
+  <div class="sc">
+    <div class="sh" style="--shc:var(--gouv)">Flux de communication, relations et échanges entre acteurs</div>
+    <div class="flux-wrap">
+
+      <div class="flux-row">
+        <div class="flux-from"><div class="fx-name">🌿 ADEME / État / Région</div><div class="fx-role">Niveau stratégique</div></div>
+        <div class="flux-arrows">
+          <div class="farr f-down"><span class="farr-head">↓</span><div class="farr-line"></div><span class="farr-label">Orientations · Financement · Conventions</span></div>
+          <div class="farr f-up"><span class="farr-head">↑</span><div class="farr-line"></div><span class="farr-label">Rapports d'avancement (×2/an) · Livrables</span></div>
+        </div>
+        <div class="flux-to"><div class="fx-name">⚙️ CA Mobilidées / COPIL</div><div class="fx-role">Gouvernance · Validation</div></div>
+      </div>
+
+      <div class="flux-row">
+        <div class="flux-from"><div class="fx-name">⚙️ CA Mobilidées / COPIL</div><div class="fx-role">Gouvernance</div></div>
+        <div class="flux-arrows">
+          <div class="farr f-down"><span class="farr-head">↓</span><div class="farr-line"></div><span class="farr-label">Validation actions · Arbitrages expérimentations</span></div>
+          <div class="farr f-up"><span class="farr-head">↑</span><div class="farr-line"></div><span class="farr-label">Comptes-rendus COTECH · Résultats des tests</span></div>
+          <div class="farr f-soiree"><span class="farr-head">⇄</span><div class="farr-line"></div><span class="farr-label">Soirée d'échanges — concertation collective</span></div>
+        </div>
+        <div class="flux-to"><div class="fx-name">🛠️ Équipe technique + MOUVinnov</div><div class="fx-role">Opérationnel · AMO</div></div>
+      </div>
+
+      <div class="flux-row">
+        <div class="flux-from"><div class="fx-name">🛠️ Équipe technique Mobilidées</div><div class="fx-role">Opérationnel</div></div>
+        <div class="flux-arrows">
+          <div class="farr f-down"><span class="farr-head">↓</span><div class="farr-line"></div><span class="farr-label">Déploiement expérimentations · Newsletters ZA</span></div>
+          <div class="farr f-up"><span class="farr-head">↑</span><div class="farr-line"></div><span class="farr-label">Carnets de voyage · Données terrain · Ambassadeurs</span></div>
+          <div class="farr f-sem"><span class="farr-head">⇄</span><div class="farr-line"></div><span class="farr-label">SEM — laboratoire d'animation interzones</span></div>
+        </div>
+        <div class="flux-to"><div class="fx-name">👷 Salariés · Entreprises · Ambassadeurs</div><div class="fx-role">Terrain · Bénéficiaires</div></div>
+      </div>
+
+      <div class="flux-row">
+        <div class="flux-from"><div class="fx-name">📋 Référents techniques ZA</div><div class="fx-role">Relais terrain par zone</div></div>
+        <div class="flux-arrows">
+          <div class="farr f-both"><span class="farr-head">⇄</span><div class="farr-line"></div><span class="farr-label">Réunions COTECH · Ateliers intra-zone</span></div>
+          <div class="farr f-both"><span class="farr-head">⇄</span><div class="farr-line"></div><span class="farr-label">Kit accessibilité · Newsletter dédiée · Carto</span></div>
+        </div>
+        <div class="flux-to"><div class="fx-name">🏭 Associations & Conseils d'adm. ZA</div><div class="fx-role">Gouvernance locale des ZA</div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- OUTILS DE COMMUNICATION -->
+  <div class="sc">
+    <div class="sh" style="--shc:var(--com)">Outils de communication — plan de diffusion</div>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="tool-name">Newsletter interzones</div>
+        <div class="tool-desc">2 éditions/an autour de la SEM : J-30 (programme) et J+30 (bilan, témoignages, lauréats)</div>
+        <span class="tool-tag" style="--tt:var(--sem)">SEM · Annuel</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/><line x1="12" y1="13" x2="12" y2="22"/></svg></div>
+        <div class="tool-name">Newsletter par zone (ZA)</div>
+        <div class="tool-desc">Newsletter spécifique à chaque ZA : annonce des expérimentations locales, retours, agenda</div>
+        <span class="tool-tag" style="--tt:var(--com)">Intra-zone</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
+        <div class="tool-name">Cartographie partagée en ligne</div>
+        <div class="tool-desc">Accès, cheminements, TC, covoiturage, points à risque. Alimentée par les carnets de voyage.</div>
+        <span class="tool-tag" style="--tt:var(--oper)">Numérique</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+        <div class="tool-name">Kit d'accessibilité multimodale</div>
+        <div class="tool-desc">Brochure par ZA : itinéraires piétons, voies vélo, arrêts TC, covoiturage, stationnement, actualités</div>
+        <span class="tool-tag" style="--tt:var(--gouv)">Par ZA</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <div class="tool-name">Carnets de voyage</div>
+        <div class="tool-desc">Traces terrain des usagers : à vélo, à l'emploi. Enrichissent la carto et identifient les ambassadeurs.</div>
+        <span class="tool-tag" style="--tt:var(--terr)">Terrain</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div class="tool-name">Site internet Mobilidées</div>
+        <div class="tool-desc">Adapté par zone et interzones. Pop-up, calendrier SEM, formulaire d'inscription newsletter, carto.</div>
+        <span class="tool-tag" style="--tt:var(--com)">Numérique</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+        <div class="tool-name">Synthèses soirées d'échanges</div>
+        <div class="tool-desc">Livrables annuels : comptes-rendus, décisions, orientations N+1. Transmis à l'ADEME.</div>
+        <span class="tool-tag" style="--tt:var(--soiree)">Livrable</span>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></div>
+        <div class="tool-name">Trophée des ZA</div>
+        <div class="tool-desc">Récompense la ZA la plus mobilisée. Remis lors de la soirée d'échanges N2 et N3.</div>
+        <span class="tool-tag" style="--tt:var(--gold)">Animation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLANNING 3 ANS -->
+  <div class="sc">
+    <div class="sh" style="--shc:var(--strat)">Planning opérationnel sur 3 ans (sept. 2025 – août 2028)</div>
+    <div class="yr-grid">
+      <div class="yr-card yr1">
+        <div class="yr-head"><div class="yr-num">N1</div><div class="yr-title">Mobilisation des acteurs<br>Lancement pilote</div></div>
+        <ul class="yr-items">
+          <li>Village SEM sur le Parc de Gémenos (format test interzone)</li>
+          <li>Présentation officielle projet aux 5 ZA</li>
+          <li>1er COPIL interzone · Définition des outils de suivi</li>
+          <li>Enquête déplacement 2025 adaptée interzones</li>
+          <li>Soirée d'échanges N1 (début 2026, vœux)</li>
+          <li>Premiers carnets de voyage · Identification ambassadeurs</li>
+          <li>Newsletter interzones : 1ère édition</li>
+          <li>Cartographie partagée en ligne : amorce</li>
+        </ul>
+      </div>
+      <div class="yr-card yr2">
+        <div class="yr-head"><div class="yr-num">N2</div><div class="yr-title">Déploiement interzones<br>Stabilisation</div></div>
+        <ul class="yr-items">
+          <li>SEM : 1 village par ZA par jour (5 villages)</li>
+          <li>Challenges & Escape Game interzones</li>
+          <li>Trophée ZA (1ère édition)</li>
+          <li>Newsletters par ZA + newsletter interzones</li>
+          <li>Site internet adapté zone/interzones</li>
+          <li>Cartographie améliorée selon retours terrain</li>
+          <li>Soirée d'échanges N2 (vœux 2027) · Premiers Rex</li>
+          <li>Rapport intermédiaire ADEME</li>
+        </ul>
+      </div>
+      <div class="yr-card yr3">
+        <div class="yr-head"><div class="yr-num">N3</div><div class="yr-title">Pérennisation<br>Reproductibilité</div></div>
+        <ul class="yr-items">
+          <li>SEM consolidée · Invitation autres ZA métro / régionales</li>
+          <li>Fresque mobilité locale · Jeu Play Mobile (ADEME/CEREMA)</li>
+          <li>Conférences écoconduite · Pollution de l'air</li>
+          <li>Soirée d'échanges N3 ouverte (prospective · partage)</li>
+          <li>Évaluation finale PDMEC + enquête déplacement N3</li>
+          <li>Rapport final ADEME + cahier de recommandations</li>
+          <li>Publication ADEME spécifique · Projet européen ?</li>
+          <li>Validation format final newsletters, site, kits ZA</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="sc">
+    <div class="sh" style="--shc:var(--gold)">Indicateurs clés de suivi</div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-val" style="--kc:var(--oper)">27→47</div><div class="kpi-label">Entreprises adhérentes</div><div class="kpi-sub">+10/an · objectif N3</div></div>
+      <div class="kpi"><div class="kpi-val" style="--kc:var(--sem)">65→+30%</div><div class="kpi-label">Participants SEM</div><div class="kpi-sub">Base 65 (moy. 2023–24)</div></div>
+      <div class="kpi"><div class="kpi-val" style="--kc:var(--soiree)">15</div><div class="kpi-label">Ambassadeurs mobilité</div><div class="kpi-sub">5/an · 1 mini par ZA</div></div>
+      <div class="kpi"><div class="kpi-val" style="--kc:var(--com)">+50%</div><div class="kpi-label">Répondants enquête</div><div class="kpi-sub">vs. 850 en 2023</div></div>
+      <div class="kpi"><div class="kpi-val" style="--kc:var(--acc)">15</div><div class="kpi-label">Expérimentations</div><div class="kpi-sub">5/an sur les 5 ZA</div></div>
+      <div class="kpi"><div class="kpi-val" style="--kc:var(--gold)">5+1</div><div class="kpi-label">Zones d'activités</div><div class="kpi-sub">+1 ZA intégrée objectif N3</div></div>
+      <div class="kpi"><div class="kpi-val" style="--kc:var(--terr)">86→?</div><div class="kpi-label">% autosolistes</div><div class="kpi-sub">Report modal mesuré en N3</div></div>
+      <div class="kpi"><div class="kpi-val" style="--kc:var(--oper)">×2/an</div><div class="kpi-label">Points ADEME</div><div class="kpi-sub">À l'issue des COPIL</div></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Projet Étoile · Mobilidées · Schéma global de communication et d'animation — Schéma 1 · Conseil d'Administration · 2025–2028</footer>
+</body>
+</html>

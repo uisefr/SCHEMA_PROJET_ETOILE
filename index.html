@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projet Étoile — Mobilidées × ADEME</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+  :root{
+    --strat:#0f2044;--ademe:#e8541a;--oper:#1a7a5a;
+    --bg:#eef1f8;--white:#fff;--border:#dde3ee;--text:#1a2030;--muted:#6a7490;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+  header{background:var(--strat);color:#fff;padding:36px 60px;border-bottom:4px solid var(--ademe);display:flex;align-items:center;gap:24px}
+  .logo{width:60px;height:60px;background:var(--ademe);border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#fff;flex-shrink:0}
+  header h1{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;line-height:1.2}
+  header p{font-size:13px;color:#94a3c0;margin-top:4px}
+  main{max-width:1100px;margin:52px auto;padding:0 40px;flex:1;width:100%}
+  .intro{background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:28px 32px;margin-bottom:36px}
+  .intro h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--strat);margin-bottom:10px}
+  .intro p{font-size:13px;color:var(--muted);line-height:1.7;max-width:700px}
+  .schemas{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+  .scard{background:#fff;border:2px solid var(--border);border-radius:16px;padding:28px 26px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:14px;transition:all .2s}
+  .scard:hover{border-color:var(--sc);box-shadow:0 8px 32px rgba(0,0,0,.1);transform:translateY(-3px)}
+  .scard-num{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sc)}
+  .scard-icon{width:52px;height:52px;border-radius:12px;background:var(--sbg);display:flex;align-items:center;justify-content:center;font-size:24px}
+  .scard h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text);line-height:1.3}
+  .scard p{font-size:12px;color:var(--muted);line-height:1.6}
+  .scard-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .st{font-size:9.5px;font-weight:600;padding:3px 8px;border-radius:20px;border:1px solid var(--border);color:var(--muted)}
+  .scard-cta{margin-top:auto;font-family:'Syne',sans-serif;font-size:11.5px;font-weight:700;color:var(--sc);display:flex;align-items:center;gap:5px}
+  .s1{--sc:#7c3aed;--sbg:#f5f2ff}
+  .s2{--sc:#1a7a5a;--sbg:#f0fdf4}
+  .s3{--sc:#1a4a8a;--sbg:#edf3fb}
+  footer{text-align:center;font-size:11px;color:var(--muted);padding:24px;border-top:1px solid var(--border);background:#fff}
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .canvas { padding: 0 20px; }
+    header { padding: 20px 28px; }
+    .leg { padding: 10px 28px; }
+    .frow { padding-left: 120px; }
+    .niveau { grid-template-columns: 120px 1fr; }
+    .nlabel { min-height: 110px; padding: 0 12px; }
+  }
+  @media (max-width: 860px) {
+    header { flex-wrap: wrap; gap: 12px; padding: 16px 20px; }
+    .sbadge { margin-left: 0; }
+    .canvas { padding: 0 14px; margin: 20px auto; }
+    .leg { padding: 10px 14px; gap: 14px; }
+    /* Niveau → stack label above content */
+    .niveau { grid-template-columns: 1fr; }
+    .nlabel {
+      flex-direction: row; align-items: center; justify-content: flex-start;
+      min-height: auto; padding: 10px 14px; border-right: none;
+      border-left: 4px solid var(--border); gap: 10px;
+    }
+    .ns .nlabel { border-left-color: var(--strat); }
+    .ng .nlabel { border-left-color: var(--gouv); }
+    .no .nlabel { border-left-color: var(--oper); }
+    .nt .nlabel { border-left-color: var(--terr); }
+    .nsub { text-align: left; margin-top: 0; }
+    .ns .ncontent, .ng .ncontent, .no .ncontent, .nt .ncontent {
+      border-radius: 0 0 12px 12px;
+    }
+    .ncontent { padding: 12px 14px; gap: 10px; }
+    .ac { min-width: calc(50% - 10px); max-width: none; }
+    .frow { padding-left: 0; padding: 6px 0; justify-content: flex-start; }
+    .dgrid { grid-template-columns: 1fr; }
+    .tf-grid { grid-template-columns: 1fr; }
+    .yr-grid { grid-template-columns: 1fr; }
+    .expe-grid { grid-template-columns: 1fr; }
+    .dynamic-section { grid-template-columns: 1fr; }
+    .zones-grid { grid-template-columns: repeat(2, 1fr); }
+    .eval-grid { grid-template-columns: 1fr 1fr; }
+    .pflow { overflow-x: auto; }
+    .section, .sc { padding: 16px 14px; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .flux-row { flex-wrap: wrap; gap: 8px; }
+    .flux-from, .flux-to { min-width: 100%; max-width: 100%; }
+    .flux-arrows { width: 100%; padding: 4px 0; }
+    .yr-grid { grid-template-columns: 1fr; gap: 10px; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    /* schema 2 */
+    .proc-banner { padding: 14px 16px; }
+  }
+  @media (max-width: 540px) {
+    header h1 { font-size: 17px; }
+    .ac { min-width: 100%; }
+    .zones-grid { grid-template-columns: 1fr 1fr; }
+    .mgrid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .eval-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: 1fr; }
+    .leg { display: none; }
+  }
+
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">PE</div>
+  <div>
+    <h1>Projet Étoile</h1>
+    <p>Mobilités actives et partagées : vers une dynamique interzones · Mobilidées × ADEME · 2025–2028</p>
+  </div>
+</header>
+<main>
+  <div class="intro">
+    <h2>Schémas de communication, d'expérimentations et de gouvernance</h2>
+    <p>Documents de présentation au Conseil d'Administration. Ces trois schémas représentent la stratégie de communication globale, les expérimentations détaillées avec leurs acteurs, et la structure organisationnelle de gouvernance du Projet Étoile piloté par Mobilidées avec le soutien de l'ADEME sur le bassin d'emploi Aubagne / Gémenos.</p>
+  </div>
+  <div class="schemas">
+    <a class="scard s1" href="schema1.html">
+      <div class="scard-num">Schéma 1</div>
+      <div class="scard-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12" y2="20"/></svg></div>
+      <h3>Communication globale et animation</h3>
+      <p>Stratégie de communication interzones, temps forts (SEM, Soirée d'échanges), outils, flux entre acteurs et planning 3 ans.</p>
+      <div class="scard-tags">
+        <span class="st">SEM</span><span class="st">Soirée d'échanges</span><span class="st">Newsletters</span><span class="st">Indicateurs</span>
+      </div>
+      <div class="scard-cta">Voir le schéma →</div>
+    </a>
+    <a class="scard s2" href="schema2.html">
+      <div class="scard-num">Schéma 2</div>
+      <div class="scard-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 3h6v10l3.5 6.5A1 1 0 0 1 17.6 21H6.4a1 1 0 0 1-.9-1.5L9 13V3z"/><line x1="6" y1="12" x2="18" y2="12"/></svg></div>
+      <h3>Expérimentations — Acteurs & échanges</h3>
+      <p>Détail des 6 expérimentations : VAE, sortie vélos (nouvelle), covoiturage, TC, cyclo-logistique, fresque mobilité. Processus de décision et évaluation.</p>
+      <div class="scard-tags">
+        <span class="st">VAE</span><span class="st">Sortie vélos ★</span><span class="st">Covoiturage</span><span class="st">Cyclo-log.</span>
+      </div>
+      <div class="scard-cta">Voir le schéma →</div>
+    </a>
+    <a class="scard s3" href="schema3.html">
+      <div class="scard-num">Schéma 3</div>
+      <div class="scard-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><line x1="3" y1="22" x2="21" y2="22"/><line x1="2" y1="9" x2="22" y2="9"/><path d="M12 2L2 9h20L12 2z"/><line x1="6" y1="9" x2="6" y2="22"/><line x1="10" y1="9" x2="10" y2="22"/><line x1="14" y1="9" x2="14" y2="22"/><line x1="18" y1="9" x2="18" y2="22"/></svg></div>
+      <h3>Gouvernance organisationnelle</h3>
+      <p>Structure en 4 niveaux (stratégique, gouvernance, opérationnel, terrain), processus de décision, moments de concertation et dynamiques inter/intra-zones.</p>
+      <div class="scard-tags">
+        <span class="st">4 niveaux</span><span class="st">COPIL</span><span class="st">Concertation</span><span class="st">Inter-zones</span>
+      </div>
+      <div class="scard-cta">Voir le schéma →</div>
+    </a>
+  </div>
+</main>
+<footer>Projet Étoile · Mobilidées × ADEME · Documents de présentation CA · 2025–2028</footer>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schéma 3 — Gouvernance · Projet Étoile</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+  :root{
+    --strat:#0f2044; --gouv:#1a4a8a; --oper:#1a7a5a; --terr:#b05a10;
+    --ademe:#e8541a; --gold:#f59e0b; --acc:#2563eb;
+    --bg:#eef1f8; --white:#fff; --border:#dde3ee; --text:#1a2030; --muted:#6a7490;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:60px}
+  header{background:var(--strat);color:#fff;padding:26px 48px;display:flex;align-items:center;gap:20px;border-bottom:4px solid var(--ademe)}
+  .logo{width:50px;height:50px;background:var(--ademe);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#fff;flex-shrink:0}
+  header h1{font-family:'Syne',sans-serif;font-size:21px;font-weight:700;line-height:1.2}
+  header p{font-size:12px;color:#94a3c0;margin-top:3px}
+  .sbadge{margin-left:auto;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:6px 14px;font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;color:#c8d4ee}
+  .leg{background:#fff;border-bottom:1px solid var(--border);padding:11px 48px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+  .leg span{font-size:10.5px;color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+  .li{display:flex;align-items:center;gap:6px;font-size:12px}
+  .ld{width:11px;height:11px;border-radius:2px;flex-shrink:0}
+  .canvas{max-width:1300px;margin:32px auto;padding:0 32px;display:flex;flex-direction:column;gap:0}
+  .niveau{display:grid;grid-template-columns:190px 1fr;gap:0}
+  .nlabel{padding:0 18px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;min-height:136px;border-right:3px solid var(--border)}
+  .ntitle{font-family:'Syne',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--lc);padding:4px 9px;border-radius:4px;text-align:center;white-space:nowrap}
+  .nsub{font-size:10px;color:var(--muted);margin-top:5px;text-align:right;line-height:1.4}
+  .ns{--lc:var(--strat)}.ng{--lc:var(--gouv)}.no{--lc:var(--oper)}.nt{--lc:var(--terr)}
+  .ncontent{padding:18px 22px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .ns .ncontent{background:#f0f3fa;border-radius:0 12px 12px 0}
+  .ng .ncontent{background:#edf3fb;border-radius:0 12px 12px 0}
+  .no .ncontent{background:#edf8f3;border-radius:0 12px 12px 0}
+  .nt .ncontent{background:#fdf5ee;border-radius:0 12px 12px 0}
+  .ac{background:#fff;border:1.5px solid var(--border);border-radius:11px;padding:12px 14px;min-width:128px;max-width:168px;flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+  .ac:hover{box-shadow:0 5px 18px rgba(0,0,0,.1)}
+  .ai{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+  .an{font-family:'Syne',sans-serif;font-size:11.5px;font-weight:700;line-height:1.3;color:var(--text)}
+  .ar{font-size:10px;color:var(--muted);line-height:1.4}
+  .at{font-size:9px;font-weight:600;letter-spacing:.04em;padding:2px 7px;border-radius:20px;color:#fff;background:var(--tc,var(--muted))}
+  .cs .ai{background:#e8edf8;color:var(--strat)} .cs{border-color:#b3c3e0} .cs .at{--tc:var(--strat)}
+  .cg .ai{background:#dceaf8;color:var(--gouv)} .cg{border-color:#90b8e0} .cg .at{--tc:var(--gouv)}
+  .co .ai{background:#d4f0e4;color:var(--oper)} .co{border-color:#7ecfad} .co .at{--tc:var(--oper)}
+  .ct .ai{background:#fce8d6;color:var(--terr)} .ct{border-color:#e8a87a} .ct .at{--tc:var(--terr)}
+  .ca .ai{background:#fde8dc;color:var(--ademe)} .ca{border-color:#f0a080} .ca .at{--tc:var(--ademe)}
+  .cgd .ai{background:#fef3c7;color:#92400e} .cgd{border-color:#fbbf24} .cgd .at{--tc:#d97706}
+  .copil-card{background:#e8f0fa!important;border-color:#1a4a8a!important;min-width:160px}
+  .copil-card .at{background:var(--strat)!important}
+  .flow{display:flex;flex-direction:column;align-items:stretch;padding:0}
+  .frow{padding:5px 0 5px 190px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .ftag{font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;gap:4px;white-space:nowrap}
+  .fd{color:var(--strat);border-color:#b3c3e0}.fu{color:var(--oper);border-color:#7ecfad}.fg{color:#b45309;border-color:#fbbf24}
+  .section{background:#fff;border:1.5px solid var(--border);border-radius:15px;padding:22px 26px;margin:10px 0}
+  .sh{font-family:'Syne',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+  .sh::before{content:'';display:block;width:18px;height:3px;border-radius:2px}
+  .sh-blue::before{background:var(--acc)}.sh-gold::before{background:var(--gold)}
+  .pflow{display:flex;align-items:center;gap:0;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
+  .ps{background:#f6f8fc;border:1.5px solid var(--border);border-radius:9px;padding:11px 13px;min-width:116px;max-width:136px;flex-shrink:0;text-align:center}
+  .psn{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--acc);line-height:1}
+  .psa{font-size:9.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:3px 0 2px}
+  .psl{font-size:10.5px;color:var(--text);line-height:1.4}
+  .ps-v{background:#eff8f0;border-color:#7ecfad}.ps-v .psn{color:var(--oper)}
+  .ps-a{background:#fff8e6;border-color:#fbbf24}.ps-a .psn{color:#d97706}
+  .parr{flex-shrink:0;padding:0 5px;display:flex;align-items:center}
+  .parr svg{color:var(--muted)}
+  .mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:11px}
+  .mc{border-radius:9px;padding:13px 15px;border:1.5px solid var(--border);background:#f6f8fc}
+  .mi{font-size:19px;margin-bottom:5px}
+  .mt{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px;color:var(--mc,var(--muted))}
+  .mn{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text);line-height:1.3}
+  .ma{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.5}
+  .m-gold{background:#fffbeb;border-color:#fbbf24;--mc:#d97706}
+  .m-blue{background:#eff6ff;border-color:#93c5fd;--mc:var(--acc)}
+  .m-green{background:#f0fdf4;border-color:#86efac;--mc:var(--oper)}
+  .m-navy{background:#e8edf8;border-color:#b3c3e0;--mc:var(--strat)}
+  .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:10px 0}
+  .dc{background:#fff;border:1.5px solid var(--border);border-radius:15px;padding:18px 20px}
+  .dc h3{font-family:'Syne',sans-serif;font-size:12.5px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+  .db{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px}
+  .dl{list-style:none;display:flex;flex-direction:column;gap:7px}
+  .dl li{display:flex;align-items:flex-start;gap:7px;font-size:11.5px;line-height:1.5}
+  .dl li::before{content:'→';flex-shrink:0;font-weight:700;margin-top:1px}
+  .dinter h3{color:var(--gouv)} .dinter .db{background:#dceaf8;color:var(--gouv)} .dinter .dl li::before{color:var(--gouv)}
+  .dintra h3{color:var(--oper)} .dintra .db{background:#d4f0e4;color:var(--oper)} .dintra .dl li::before{color:var(--oper)}
+  footer{text-align:center;font-size:11px;color:var(--muted);padding:28px;border-top:1px solid var(--border);background:#fff;margin-top:16px}
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .canvas { padding: 0 20px; }
+    header { padding: 20px 28px; }
+    .leg { padding: 10px 28px; }
+    .frow { padding-left: 120px; }
+    .niveau { grid-template-columns: 120px 1fr; }
+    .nlabel { min-height: 110px; padding: 0 12px; }
+  }
+  @media (max-width: 860px) {
+    header { flex-wrap: wrap; gap: 12px; padding: 16px 20px; }
+    .sbadge { margin-left: 0; }
+    .canvas { padding: 0 14px; margin: 20px auto; }
+    .leg { padding: 10px 14px; gap: 14px; }
+    /* Niveau → stack label above content */
+    .niveau { grid-template-columns: 1fr; }
+    .nlabel {
+      flex-direction: row; align-items: center; justify-content: flex-start;
+      min-height: auto; padding: 10px 14px; border-right: none;
+      border-left: 4px solid var(--border); gap: 10px;
+    }
+    .ns .nlabel { border-left-color: var(--strat); }
+    .ng .nlabel { border-left-color: var(--gouv); }
+    .no .nlabel { border-left-color: var(--oper); }
+    .nt .nlabel { border-left-color: var(--terr); }
+    .nsub { text-align: left; margin-top: 0; }
+    .ns .ncontent, .ng .ncontent, .no .ncontent, .nt .ncontent {
+      border-radius: 0 0 12px 12px;
+    }
+    .ncontent { padding: 12px 14px; gap: 10px; }
+    .ac { min-width: calc(50% - 10px); max-width: none; }
+    .frow { padding-left: 0; padding: 6px 0; justify-content: flex-start; }
+    .dgrid { grid-template-columns: 1fr; }
+    .tf-grid { grid-template-columns: 1fr; }
+    .yr-grid { grid-template-columns: 1fr; }
+    .expe-grid { grid-template-columns: 1fr; }
+    .dynamic-section { grid-template-columns: 1fr; }
+    .zones-grid { grid-template-columns: repeat(2, 1fr); }
+    .eval-grid { grid-template-columns: 1fr 1fr; }
+    .pflow { overflow-x: auto; }
+    .section, .sc { padding: 16px 14px; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .flux-row { flex-wrap: wrap; gap: 8px; }
+    .flux-from, .flux-to { min-width: 100%; max-width: 100%; }
+    .flux-arrows { width: 100%; padding: 4px 0; }
+    .yr-grid { grid-template-columns: 1fr; gap: 10px; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    /* schema 2 */
+    .proc-banner { padding: 14px 16px; }
+  }
+  @media (max-width: 540px) {
+    header h1 { font-size: 17px; }
+    .ac { min-width: 100%; }
+    .zones-grid { grid-template-columns: 1fr 1fr; }
+    .mgrid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .eval-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: 1fr; }
+    .leg { display: none; }
+  }
+
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">PE</div>
+  <div>
+    <h1>Schéma organisationnel de gouvernance</h1>
+    <p>Projet Étoile — Mobilités actives et partagées · Mobilidées × ADEME · 2025–2028</p>
+  </div>
+  <span class="sbadge">SCHÉMA 3</span>
+</header>
+<nav style="background:#1a3060;padding:8px 48px;display:flex;align-items:center;gap:6px"><a href="index.html" style="color:#94a3c0;text-decoration:none;font-family:DM Sans,sans-serif;font-size:12px;display:flex;align-items:center;gap:5px">← Retour au hub</a></nav>
+
+<div class="leg">
+  <span>Niveaux :</span>
+  <div class="li"><div class="ld" style="background:#0f2044"></div>Stratégique</div>
+  <div class="li"><div class="ld" style="background:#1a4a8a"></div>Gouvernance</div>
+  <div class="li"><div class="ld" style="background:#1a7a5a"></div>Opérationnel</div>
+  <div class="li"><div class="ld" style="background:#b05a10"></div>Terrain</div>
+  <div style="margin-left:auto;display:flex;gap:18px">
+    <div class="li"><div class="ld" style="background:#2563eb;border-radius:50%"></div>Validation</div>
+    <div class="li"><div class="ld" style="background:#f59e0b;border-radius:50%"></div>Concertation</div>
+    <div class="li"><div class="ld" style="background:#1a7a5a;border-radius:50%"></div>Remontée terrain</div>
+  </div>
+</div>
+
+<div class="canvas">
+
+  <!-- STRATÉGIQUE -->
+  <div class="niveau ns">
+    <div class="nlabel">
+      <span class="ntitle">Niveau<br>Stratégique</span>
+      <span class="nsub">Financement<br>Orientations nationales</span>
+    </div>
+    <div class="ncontent">
+      <div class="ac ca"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div><div class="an">ADEME</div><div class="ar">Financeur · Référent technique national</div><span class="at">Financement</span></div>
+      <div class="ac cs"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><line x1="3" y1="22" x2="21" y2="22"/><line x1="2" y1="9" x2="22" y2="9"/><path d="M12 2L2 9h20L12 2z"/><line x1="6" y1="9" x2="6" y2="22"/><line x1="10" y1="9" x2="10" y2="22"/><line x1="14" y1="9" x2="14" y2="22"/><line x1="18" y1="9" x2="18" y2="22"/></svg></div><div class="an">État</div><div class="ar">DDT · DREAL · Autoroutes · Pilotes</div><span class="at">Réglementation</span></div>
+      <div class="ac cs"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div><div class="an">Région Sud</div><div class="ar">TER · Intermodalité · PAMS · Covoiturage</div><span class="at">Planification</span></div>
+      <div class="ac cs"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="2" width="18" height="20" rx="1"/><line x1="12" y1="2" x2="12" y2="22"/><path d="M7 7h1M16 7h1M7 11h1M16 11h1M7 15h1M16 15h1"/></svg></div><div class="an">Département 13</div><div class="ar">Voirie hors agglo · Social · Accès emploi</div><span class="at">Social</span></div>
+      <div class="ac cs"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div class="an">Europe (FSE)</div><div class="ar">Financements européens · Projets pilotes</div><span class="at">Prospective</span></div>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div class="frow">
+      <span class="ftag fd">↓ Orientations stratégiques</span>
+      <span class="ftag fd">↓ Conventions de financement</span>
+      <span class="ftag fu">↑ Rapports d'avancement ADEME (×2/an)</span>
+      <span class="ftag fg">⇄ Points d'étape · Concertation institutionnelle</span>
+    </div>
+  </div>
+
+  <!-- GOUVERNANCE -->
+  <div class="niveau ng">
+    <div class="nlabel">
+      <span class="ntitle">Niveau<br>Gouvernance</span>
+      <span class="nsub">Pilotage · Validation<br>COPIL interzone</span>
+    </div>
+    <div class="ncontent">
+      <div class="ac cg"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.82 1v.09a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-2.82-1l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div><div class="an">CA Mobilidées</div><div class="ar">6–10 CA/an · Instance délibérante principale</div><span class="at">Direction</span></div>
+      <div class="ac cg"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></div><div class="an">MOUVinnov</div><div class="ar">AMO · Expertise technique · Réseau européen SEM</div><span class="at">Expertise AMO</span></div>
+      <div class="ac cg copil-card"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div><div class="an">COPIL interzone</div><div class="ar">×2/an · Présidents 5 ZA · Commissions mobilité · Villes</div><span class="at">Validation</span></div>
+      <div class="ac cs"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="an">Associations de zones</div><div class="ar">Syndicats ZA · Présidents des 5 zones d'activités</div><span class="at">Représentation</span></div>
+      <div class="ac cs"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="an">Collectivités locales</div><div class="ar">Aubagne · Gémenos · La Penne · Métropole AMP</div><span class="at">Territoire</span></div>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div class="frow">
+      <span class="ftag fd">↓ Validation des actions & budgets</span>
+      <span class="ftag fd">↓ Arbitrages expérimentations</span>
+      <span class="ftag fu">↑ Comptes-rendus COTECH</span>
+      <span class="ftag fg">⇄ Soirées d'échanges (concertation annuelle)</span>
+    </div>
+  </div>
+
+  <!-- OPÉRATIONNEL -->
+  <div class="niveau no">
+    <div class="nlabel">
+      <span class="ntitle">Niveau<br>Opérationnel</span>
+      <span class="nsub">Études · Tests · Animation<br>COTECH</span>
+    </div>
+    <div class="ncontent">
+      <div class="ac co"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div class="an">Équipe technique Mobilidées</div><div class="ar">Chef de projet · Coordination PDMEC · Animation</div><span class="at">Coordination</span></div>
+      <div class="ac co"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></div><div class="an">Référents techniques ZA</div><div class="ar">×5 zones · Relais terrain · Commissions mobilité</div><span class="at">Relais</span></div>
+      <div class="ac co"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="an">Opérateurs transport</div><div class="ar">RTM · TER Région · Cars interurbains · BHNS</div><span class="at">TC</span></div>
+      <div class="ac cgd"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5a2 2 0 0 1-2 2h-2"/><circle cx="7" cy="17" r="2"/><circle cx="15" cy="17" r="2"/><path d="M3 9h18M14 3v6"/></svg></div><div class="an">Karos</div><div class="ar">Application covoiturage · Licence Premium Métropole</div><span class="at">Covoiturage</span></div>
+      <div class="ac co"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M12 17V6l-5 3M12 6l5 3-5 3"/><path d="M5 17l4-7h6l2 7"/></svg></div><div class="an">Action Vélo Aubagne</div><div class="ar">Ateliers réparation · Prêts VAE · Animations vélo</div><span class="at">Vélo</span></div>
+      <div class="ac co"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg></div><div class="an">La Ressourcerie</div><div class="ar">Partenaire local · Cyclo-logistique inclusive</div><span class="at">Local</span></div>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div class="frow">
+      <span class="ftag fd">↓ Déploiement des expérimentations</span>
+      <span class="ftag fd">↓ Animation & communication par ZA</span>
+      <span class="ftag fu">↑ Carnets de voyage · Données terrain</span>
+      <span class="ftag fu">↑ Identification des ambassadeurs</span>
+    </div>
+  </div>
+
+  <!-- TERRAIN -->
+  <div class="niveau nt">
+    <div class="nlabel">
+      <span class="ntitle">Niveau<br>Terrain</span>
+      <span class="nsub">Usagers · Actifs<br>Bénéficiaires directs</span>
+    </div>
+    <div class="ncontent">
+      <div class="ac ct"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><path d="M17 18h.01M12 18h.01M7 18h.01"/></svg></div><div class="an">Entreprises</div><div class="ar">4 000+ entreprises · 27 adhérentes → objectif 47</div><span class="at">Adhérents</span></div>
+      <div class="ac ct"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="an">Salariés / Actifs</div><div class="ar">25 000 emplois directs · Cibles du report modal</div><span class="at">Usagers</span></div>
+      <div class="ac ct"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><path d="M2 13h20"/></svg></div><div class="an">Demandeurs d'emploi</div><div class="ar">France Travail · Mission Locale · PLIE · CCAS</div><span class="at">Inclusion</span></div>
+      <div class="ac cgd"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="an">Ambassadeurs</div><div class="ar">5 mini (1/ZA) · +5 N2 · +5 N3 · Pairs mobilité</div><span class="at">Relais pairs</span></div>
+      <div class="ac ct"><div class="ai"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="an">Profils précaires</div><div class="ar">CDD · Stagiaires · Apprentis · Accès prioritaire VAE</div><span class="at">Équité</span></div>
+    </div>
+  </div>
+
+  <!-- PROCESSUS DE DÉCISION -->
+  <div class="section">
+    <div class="sh sh-blue">Processus de décision — du diagnostic à l'action</div>
+    <div class="pflow">
+      <div class="ps"><div class="psn">1</div><div class="psa">Techniciens</div><div class="psl">Études techniques & diagnostics terrain</div></div>
+      <div class="parr"><svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h16M12 1l6 4-6 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="ps"><div class="psn">2</div><div class="psa">Techniciens × Opérateurs</div><div class="psl">Contact & co-conception avec partenaires</div></div>
+      <div class="parr"><svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h16M12 1l6 4-6 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="ps"><div class="psn">3</div><div class="psa">Techniciens</div><div class="psl">Réalisation des tests & expérimentations</div></div>
+      <div class="parr"><svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h16M12 1l6 4-6 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="ps ps-a"><div class="psn">4</div><div class="psa">Élus / COPIL</div><div class="psl">Validation des actions & arbitrages</div></div>
+      <div class="parr"><svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h16M12 1l6 4-6 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="ps ps-v"><div class="psn">5</div><div class="psa">Terrain</div><div class="psl">Déploiement des expérimentations</div></div>
+      <div class="parr"><svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5h16M12 1l6 4-6 4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="ps ps-a"><div class="psn">6</div><div class="psa">Élus / COPIL</div><div class="psl">Présentation résultats & bilan annuel</div></div>
+    </div>
+  </div>
+
+  <!-- MOMENTS DE CONCERTATION -->
+  <div class="section">
+    <div class="sh sh-gold">Moments de concertation & temps favorables</div>
+    <div class="mgrid">
+      <div class="mc m-gold"><div class="mi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div><div class="mt">Point d'orgue annuel</div><div class="mn">Soirée d'échanges interzones</div><div class="ma">Présidents ZA · Entreprises · Élus · Ambassadeurs · COPIL</div></div>
+      <div class="mc m-blue"><div class="mi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M12 17V6l-5 3M12 6l5 3-5 3"/><path d="M5 17l4-7h6l2 7"/></svg></div><div class="mt">Événement annuel</div><div class="mn">Semaine Européenne de la Mobilité</div><div class="ma">Salariés · Entreprises · Opérateurs · Associations locales</div></div>
+      <div class="mc m-navy"><div class="mi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><div class="mt">Gouvernance</div><div class="mn">COPIL interzone (×2/an)</div><div class="ma">Présidents 5 ZA · Commissions mobilité · Villes d'Aubagne et Gémenos</div></div>
+      <div class="mc m-green"><div class="mi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div class="mt">Opérationnel</div><div class="mn">Réunions COTECH</div><div class="ma">Équipe Mobilidées · Référents techniques ZA · MOUVinnov</div></div>
+      <div class="mc m-green"><div class="mi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M9 3h6v10l3.5 6.5A1 1 0 0 1 17.6 21H6.4a1 1 0 0 1-.9-1.5L9 13V3z"/><line x1="6" y1="12" x2="18" y2="12"/></svg></div><div class="mt">Expérimentation</div><div class="mn">Ateliers par zone (intra)</div><div class="ma">Salariés · Entreprises · Référents ZA · Opérateurs locaux</div></div>
+      <div class="mc m-blue"><div class="mi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></div><div class="mt">Suivi</div><div class="mn">Retours d'expérience</div><div class="ma">Carnets de voyage · Enquêtes déplacement · Points ADEME</div></div>
+      <div class="mc m-gold"><div class="mi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l1.03 1.03L12 21.23l7.39-7.97 1.03-1.03a5.4 5.4 0 0 0 0-7.65z"/></svg></div><div class="mt">Concertation territoriale</div><div class="mn">Ateliers élus × salariés</div><div class="ma">Villes · Métropole AMP · Commissions mobilité des ZA</div></div>
+      <div class="mc m-navy"><div class="mi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="mt">Bilan institutionnel</div><div class="mn">Points d'étape ADEME (×2/an)</div><div class="ma">CA Mobilidées · MOUVinnov · ADEME · Rapport intermédiaire</div></div>
+    </div>
+  </div>
+
+  <!-- DYNAMIQUE INTER / INTRA -->
+  <div class="dgrid">
+    <div class="dc dinter">
+      <h3><span class="dyn-dot" style="width:10px;height:10px;background:var(--gouv);border-radius:50%;display:inline-block;flex-shrink:0"></span> Dynamique inter-zones <span class="db">5 ZA · Territoire commun</span></h3>
+      <ul class="dl">
+        <li>Village SEM itinérant : 1 jour par zone (Napollon, Pole Alpha, La Martelle, Les Paluds, Gémenos)</li>
+        <li>COPIL interzone : partage des expérimentations et bonnes pratiques croisées</li>
+        <li>Défis interzones : Trophée ZA la plus mobilisée (Soirée d'échanges N2 et N3)</li>
+        <li>Newsletter interzones unique + plans de comm spécifiques par ZA</li>
+        <li>Soirée d'échanges : bilan collectif et projection commune sur l'année N+1</li>
+        <li>Ambassadeurs inter-zones : 5 N1 → 10 N2 → 15 N3 en fin de projet</li>
+        <li>Cartographie partagée en ligne : données et points à risque communs</li>
+      </ul>
+    </div>
+    <div class="dc dintra">
+      <h3><span class="dyn-dot" style="width:10px;height:10px;background:var(--oper);border-radius:50%;display:inline-block;flex-shrink:0"></span> Dynamique intra-zone <span class="db">Adaptée à chaque ZA</span></h3>
+      <ul class="dl">
+        <li>Expérimentations locales adaptées : VAE · Sortie vélos (Les Paluds, Plaine de Jouques)</li>
+        <li>Newsletter dédiée par ZA annonçant les expérimentations propres à la zone</li>
+        <li>Kit d'accessibilité multimodale par zone (itinéraires, TC, stationnement, covoiturage…)</li>
+        <li>Carnet de voyage à vélo / à l'emploi : traces terrain enrichissant la cartographie</li>
+        <li>Covoiturage par axe spécifique à chaque ZA via Karos (point de rencontre dédié)</li>
+        <li>Associations de zone : syndicats locaux impliqués dans le COPIL et COTECH</li>
+        <li>Labellisation Parc+ par ZA : 1 action/an ajoutée aux labels multimodaux</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<footer>Projet Étoile · Mobilidées · Schéma organisationnel de gouvernance — Schéma 3 · Présentation Conseil d'Administration · 2025–2028</footer>
+</body>
+</html>
